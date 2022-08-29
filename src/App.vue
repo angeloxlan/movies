@@ -1,5 +1,7 @@
 <template>
-    <div>App</div>
+    <ViewHome />
 </template>
 
-<script setup></script>
+<script setup>
+import ViewHome from '@/views/ViewHome.vue';
+</script>
