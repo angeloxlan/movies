@@ -1,5 +1,21 @@
 <template>
-    <div class="bg-app-white2 flex items-center justify-between w-full">
+    <div
+        class="container my-0 mx-auto border-b-2 border-app-black hidden md:block"
+    >
+        <ul class="flex justify-around h-32">
+            <li class="self-center"><a href="#">LOGO</a></li>
+            <li class="self-center"><a href="#">Trending</a></li>
+            <li class="self-center"><a href="#">Top Rated</a></li>
+            <li class="self-center"><a href="#">Upcoming</a></li>
+            <li class="flex items-center self-center">
+                <a href="#">Genres</a
+                ><img class="h-3 ml-2" src="@/assets/img/dropdown-icon.svg" />
+            </li>
+        </ul>
+    </div>
+    <div
+        class="bg-app-white2 flex items-center justify-between w-full md:hidden"
+    >
         <div class="ml-4 my-3">
             <svg class="w-12" fill="none" viewBox="0 0 78 62">
                 <path
