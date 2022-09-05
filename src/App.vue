@@ -1,7 +1,8 @@
 <template>
-    <ViewHome />
+    <AppHeader />
+    <router-view></router-view>
 </template>
 
 <script setup>
-import ViewHome from '@/views/ViewHome.vue';
+import AppHeader from '@/components/AppHeader.vue';
 </script>
