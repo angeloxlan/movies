@@ -22,6 +22,9 @@ module.exports = {
             maxWidth: {
                 '2/3': '66.666667%',
             },
+            boxShadow: {
+                poster: '5px 4px 25px 6px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);',
+            },
         },
     },
     plugins: [],

@@ -9,6 +9,7 @@
             :posterPath="movie.poster_path"
             :voteAverage="movie.vote_average"
             :key="movie.id"
+            :voteCount="movie.vote_count"
         />
     </div>
 </template>
