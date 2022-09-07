@@ -2,9 +2,9 @@
     <div
         class="container my-0 mx-auto border-b-2 border-app-black hidden md:block"
     >
-        <ul class="flex justify-around h-32">
+        <ul class="flex justify-around h-32 text-stone-700">
             <li class="self-center"><a href="#">LOGO</a></li>
-            <li class="self-center"><a href="#">Trending</a></li>
+            <li class="self-center"><router-link :to="{ name: 'trending' }">Trending</router-link></li>
             <li class="self-center"><a href="#">Top Rated</a></li>
             <li class="self-center"><a href="#">Upcoming</a></li>
             <li class="flex items-center self-center">
@@ -54,9 +54,22 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+console.log(route.path);
+</script>
 
 <style scoped>
+.router-link-active {
+    @apply border-b-2;
+    @apply border-gray-400;
+    @apply shadow-lg;
+    @apply text-black;
+}
+
 input {
     width: 1px;
     border-radius: 0;
