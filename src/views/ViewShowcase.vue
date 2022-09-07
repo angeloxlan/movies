@@ -15,13 +15,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { defineProps, ref } from 'vue';
 import AppPoster from '@/components/movies/AppPoster.vue';
-import { getTrendingDay } from '@/api/movies.js';
 
-const movies = ref([]);
-
-getTrendingDay().then((res) => {
-    movies.value = res;
+const props = defineProps({
+    movies: {
+        page: Number,
+        movies: Array,
+        total_pages: Number,
+        total_results: Number,
+    }
 });
 </script>
