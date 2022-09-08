@@ -4,8 +4,12 @@
     >
         <ul class="flex justify-around h-32 text-stone-700">
             <li class="self-center"><a href="#">LOGO</a></li>
-            <li class="self-center"><router-link :to="{ name: 'trending' }">Trending</router-link></li>
-            <li class="self-center"><a href="#">Top Rated</a></li>
+            <li class="self-center">
+                <router-link :to="{ name: 'trending' }">Trending</router-link>
+            </li>
+            <li class="self-center">
+                <router-link :to="{ name: 'topRated' }">Top Rated</router-link>
+            </li>
             <li class="self-center"><a href="#">Upcoming</a></li>
             <li class="flex items-center self-center">
                 <a href="#">Genres</a
@@ -54,13 +58,7 @@
     </div>
 </template>
 
-<script setup>
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
-
-console.log(route.path);
-</script>
+<script setup></script>
 
 <style scoped>
 .router-link-active {

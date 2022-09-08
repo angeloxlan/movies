@@ -24,6 +24,6 @@ const props = defineProps({
         movies: Array,
         total_pages: Number,
         total_results: Number,
-    }
+    },
 });
 </script>

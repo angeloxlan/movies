@@ -15,6 +15,11 @@ const router = createRouter({
             name: 'trending',
             component: ViewTrending,
         },
+        {
+            path: '/top-rated',
+            name: 'topRated',
+            component: () => import('@/views/ViewTopRated.vue'),
+        },
     ],
 });
 
