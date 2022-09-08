@@ -10,7 +10,9 @@
             <li class="self-center">
                 <router-link :to="{ name: 'topRated' }">Top Rated</router-link>
             </li>
-            <li class="self-center"><a href="#">Upcoming</a></li>
+            <li class="self-center">
+                <router-link :to="{ name: 'upcoming' }">Upcoming</router-link>
+            </li>
             <li class="flex items-center self-center">
                 <a href="#">Genres</a
                 ><img class="h-3 ml-2" src="@/assets/img/dropdown-icon.svg" />

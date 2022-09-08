@@ -20,6 +20,11 @@ const router = createRouter({
             name: 'topRated',
             component: () => import('@/views/ViewTopRated.vue'),
         },
+        {
+            path: '/upcoming',
+            name: 'upcoming',
+            component: () => import('@/views/ViewUpcoming.vue'),
+        },
     ],
 });
 

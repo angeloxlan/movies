@@ -26,3 +26,12 @@ export async function getTopRated() {
         .then((res) => res.json())
         .then((res) => res);
 }
+
+export async function getUpcoming() {
+    return fetch(
+        `${URL}/movie/upcoming?api_key=${import.meta.env.VITE_API_KEY}`,
+        params
+    )
+        .then((res) => res.json())
+        .then((res) => res);
+}
