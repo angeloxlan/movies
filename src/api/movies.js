@@ -44,3 +44,12 @@ export async function getMovieGenres() {
         .then((res) => res.json())
         .then((res) => res);
 }
+
+export async function getMoviesByGenre(id) {
+    return fetch(
+        `${URL}/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&with_genres=${id}`,
+        params
+    )
+        .then((res) => res.json())
+        .then((res) => res);
+}

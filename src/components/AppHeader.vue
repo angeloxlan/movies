@@ -19,9 +19,9 @@
                     <template #toggleLabel>Genres</template>
                     <template #menu>
                         <div class="w-120 grid grid-cols-3">
-                            <span v-for="genre in genres" :key="genre.id">{{
+                            <router-link :to="{ name: 'genre', params: { id: genre.id } }" v-for="genre in genres" :key="genre.id">{{
                                 genre.name
-                            }}</span>
+                            }}</router-link>
                         </div>
                     </template>
                 </AppDropdown>
@@ -84,7 +84,7 @@ getMovieGenres().then((res) => {
 </script>
 
 <style scoped>
-.router-link-active {
+li > .router-link-active {
     @apply border-b-2;
     @apply border-gray-400;
     @apply shadow-lg;

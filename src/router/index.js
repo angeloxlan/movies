@@ -25,6 +25,11 @@ const router = createRouter({
             name: 'upcoming',
             component: () => import('@/views/ViewUpcoming.vue'),
         },
+        {
+            path: '/genre/:id',
+            name: 'genre',
+            component: () => import('@/views/ViewGenre.vue'),
+        },
     ],
 });
 
