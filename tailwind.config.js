@@ -15,6 +15,7 @@ module.exports = {
             },
             width: {
                 57: '14.475rem',
+                120: '30rem',
             },
             minHeight: {
                 106: '26.5rem',
@@ -24,6 +25,10 @@ module.exports = {
             },
             boxShadow: {
                 poster: '5px 4px 25px 6px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);',
+                dropdown: '0px 0px 23px -2px rgba(0,0,0,0.69)',
+            },
+            borderRadius: {
+                1: '1rem',
             },
         },
     },

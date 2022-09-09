@@ -1,4 +1,5 @@
 <template>
+    <!-- Desktop Navbar -->
     <div
         class="container my-0 mx-auto border-b-2 border-app-black hidden md:block"
     >
@@ -13,12 +14,21 @@
             <li class="self-center">
                 <router-link :to="{ name: 'upcoming' }">Upcoming</router-link>
             </li>
-            <li class="flex items-center self-center">
-                <a href="#">Genres</a
-                ><img class="h-3 ml-2" src="@/assets/img/dropdown-icon.svg" />
+            <li class="self-center">
+                <AppDropdown>
+                    <template #toggleLabel>Genres</template>
+                    <template #menu>
+                        <div class="w-120 grid grid-cols-3">
+                            <span v-for="genre in genres" :key="genre.id">{{
+                                genre.name
+                            }}</span>
+                        </div>
+                    </template>
+                </AppDropdown>
             </li>
         </ul>
     </div>
+    <!-- Mobile Navbar -->
     <div
         class="bg-app-white2 flex items-center justify-between w-full md:hidden"
     >
@@ -60,7 +70,18 @@
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onBeforeUnmount, onMounted, ref } from 'vue';
+import AppDropdown from '@/components/AppDropdown.vue';
+import { getMovieGenres } from '@/api/movies.js';
+
+const isDropdownOpen = ref(false);
+const genres = ref([]);
+
+getMovieGenres().then((res) => {
+    genres.value = res.genres;
+});
+</script>
 
 <style scoped>
 .router-link-active {
