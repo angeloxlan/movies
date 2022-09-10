@@ -1,6 +1,6 @@
 <template>
-    <a
-        href="#"
+    <router-link
+        :to="{ name: 'movieDetail', params: { id } }"
         class="rounded-lg bg-app-white2 w-57 min-h-106 my-0 mx-auto shadow-poster hover:shadow-2xl hover:scale-105 transition duration-300 ease-int-out"
     >
         <div class="flex h-87">
@@ -31,7 +31,7 @@
                 />
             </span>
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script setup>
