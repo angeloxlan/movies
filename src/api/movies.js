@@ -1,5 +1,7 @@
 const URL = 'https://api.themoviedb.org/3';
 export const POSTER_PATH = 'https://image.tmdb.org/t/p/w342';
+export const POSTER_PATH_DETAIL = 'https://image.tmdb.org/t/p/w780';
+export const CAST_IMG_PATH = 'https://image.tmdb.org/t/p/w185';
 
 const params = {
     mode: 'cors',
@@ -47,7 +49,9 @@ export async function getMovieGenres() {
 
 export async function getMoviesByGenre(id) {
     return fetch(
-        `${URL}/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&with_genres=${id}`,
+        `${URL}/discover/movie?api_key=${
+            import.meta.env.VITE_API_KEY
+        }&with_genres=${id}`,
         params
     )
         .then((res) => res.json())
@@ -57,6 +61,15 @@ export async function getMoviesByGenre(id) {
 export async function getDetail(id) {
     return fetch(
         `${URL}/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`,
+        params
+    )
+        .then((res) => res.json())
+        .then((res) => res);
+}
+
+export async function getCast(id) {
+    return fetch(
+        `${URL}/movie/${id}/credits?api_key=${import.meta.env.VITE_API_KEY}`,
         params
     )
         .then((res) => res.json())

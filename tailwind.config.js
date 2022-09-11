@@ -30,6 +30,9 @@ module.exports = {
             borderRadius: {
                 1: '1rem',
             },
+            rotate: {
+                270: '270deg',
+            },
         },
     },
     plugins: [],

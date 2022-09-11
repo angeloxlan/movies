@@ -1,5 +1,5 @@
 <template>
-    <AppDetail :id="route.params.id" />    
+    <AppDetail :id="route.params.id" />
 </template>
 
 <script setup>

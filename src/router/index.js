@@ -34,7 +34,7 @@ const router = createRouter({
             path: '/movie/:id',
             name: 'movieDetail',
             component: () => import('@/views/ViewDetail.vue'),
-            props: route => ({ id: Number(route.params.id) }),
+            props: (route) => ({ id: Number(route.params.id) }),
         },
     ],
 });

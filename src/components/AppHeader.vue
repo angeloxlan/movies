@@ -19,9 +19,15 @@
                     <template #toggleLabel>Genres</template>
                     <template #menu>
                         <div class="w-120 grid grid-cols-3">
-                            <router-link :to="{ name: 'genre', params: { id: genre.id } }" v-for="genre in genres" :key="genre.id">{{
-                                genre.name
-                            }}</router-link>
+                            <router-link
+                                :to="{
+                                    name: 'genre',
+                                    params: { id: genre.id },
+                                }"
+                                v-for="genre in genres"
+                                :key="genre.id"
+                                >{{ genre.name }}</router-link
+                            >
                         </div>
                     </template>
                 </AppDropdown>
