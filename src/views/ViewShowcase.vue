@@ -1,16 +1,21 @@
 <template>
-    <div
-        class="container min-h-screen my-0 mx-auto mt-4 mb-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16"
-    >
-        <AppPoster
-            v-for="movie in movies.results"
-            :id="movie.id"
-            :title="movie.title"
-            :posterPath="movie.poster_path"
-            :voteAverage="movie.vote_average"
-            :key="movie.id"
-            :voteCount="movie.vote_count"
-        />
+    <div class="container min-h-screen my-0 mx-auto mt-4 mb-6 flex flex-col">
+        <div class="grid grid-cols-4 grap-y-16">
+            <p class="text-center text-3xl font-bold">Movies</p>
+        </div>
+        <div
+            class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16"
+        >
+            <AppPoster
+                v-for="movie in movies.results"
+                :id="movie.id"
+                :title="movie.title"
+                :posterPath="movie.poster_path"
+                :voteAverage="movie.vote_average"
+                :key="movie.id"
+                :voteCount="movie.vote_count"
+            />
+        </div>
     </div>
 </template>
 

@@ -75,3 +75,14 @@ export async function getCast(id) {
         .then((res) => res.json())
         .then((res) => res);
 }
+
+export async function getRecommended(id) {
+    return fetch(
+        `${URL}/movie/${id}/recommendations?api_key=${
+            import.meta.env.VITE_API_KEY
+        }`,
+        params
+    )
+        .then((res) => res.json())
+        .then((res) => res);
+}
