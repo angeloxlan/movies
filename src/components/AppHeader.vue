@@ -27,12 +27,16 @@
                         <template #menu>
                             <div class="w-120 grid grid-cols-3">
                                 <router-link
+                                    class="w-fit"
                                     :to="{
                                         name: 'genre',
                                         params: { id: genre.id },
                                     }"
                                     v-for="genre in genres"
                                     :key="genre.id"
+                                    @click="
+                                        useGenreStore.setSelected(genre.name)
+                                    "
                                     >{{ genre.name }}</router-link
                                 >
                             </div>
@@ -89,16 +93,36 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import AppDropdown from '@/components/AppDropdown.vue';
+import { useRoute } from 'vue-router';
 import { getMovieGenres } from '@/api/movies.js';
+import { useGenre } from '@/stores/genre.js';
 
 const isDropdownOpen = ref(false);
 const genres = ref([]);
+const useGenreStore = useGenre();
+
+const route = useRoute();
+
+console.log(route.name);
 
 getMovieGenres().then((res) => {
     genres.value = res.genres;
 });
+
+watch(
+    () => route.name,
+    (newValue) => {
+        if (route.name == 'genre') {
+            console.log(route.name);
+            const genre = genres.value.find(
+                (genre) => genre.id == route.params.id
+            );
+            useGenreStore.setSelected(genre.name);
+        }
+    }
+);
 </script>
 
 <style scoped>

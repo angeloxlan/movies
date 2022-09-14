@@ -1,7 +1,7 @@
 <template>
     <div>
         <AppDetail :id="route.params.id" class="mb-28" />
-        <ViewShowcase :movies="movies" />
+        <ViewShowcase :movies="movies" :title="title" />
     </div>
 </template>
 
@@ -14,6 +14,7 @@ import { getRecommended } from '@/api/movies.js';
 
 const movies = ref([]);
 const route = useRoute();
+const title = ref('Recommended');
 
 getRecommended(route.params.id).then((res) => {
     movies.value = res;

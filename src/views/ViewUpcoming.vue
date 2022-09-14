@@ -1,5 +1,5 @@
 <template>
-    <ViewShowcase :movies="movies" />
+    <ViewShowcase :movies="movies" :title="title" />
 </template>
 
 <script setup>
@@ -8,6 +8,7 @@ import ViewShowcase from '@/views/ViewShowcase.vue';
 import { getUpcoming } from '@/api/movies.js';
 
 const movies = ref([]);
+const title = ref('Upcoming');
 
 getUpcoming().then((res) => {
     movies.value = res;
