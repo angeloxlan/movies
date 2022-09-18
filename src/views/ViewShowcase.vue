@@ -1,6 +1,6 @@
 <template>
     <div class="container min-h-screen my-0 mx-auto mt-4 mb-6 flex flex-col">
-        <div class="grid grid-cols-4 grap-y-16">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gra-y-16">
             <p class="text-center text-3xl font-bold mb-6">{{ title }}</p>
         </div>
         <div

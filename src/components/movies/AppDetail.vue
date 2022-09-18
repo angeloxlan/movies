@@ -1,28 +1,28 @@
 <template>
-    <div class="container my-0 mx-auto mt-12 flex justify-center">
-        <div class="bg-app-white2 w-1/4 h-auto rounded-xl">
+    <div class="container my-0 mx-auto mt-12 flex flex-col lg:flex-row justify-center">
+        <div class="bg-app-white2 w-2/3 lg:w-1/4 h-auto rounded-xl self-center mb-6 lg:mb-0 shadow-poster">
             <img class="rounded-xl" :src="fullPosterPath" />
         </div>
-        <div class="flex flex-col justify-between w-2/4 px-16">
+        <div class="flex flex-col justify-between gap-2 lg:w-2/4 px-8 lg:px-16">
             <div>
-                <p class="text-2xl font-bold">{{ movie.title }}</p>
-                <p>{{ movie.tagline }}</p>
+                <p class="text-xl lg:text-2xl font-bold">{{ movie.title }}</p>
+                <p class="text-sm lg:text-base">{{ movie.tagline }}</p>
             </div>
             <div>
-                <p class="text-2xl font-bold">Genres</p>
+                <p class="text-xl lg:text-2xl font-bold">Genres</p>
                 <span
                     v-for="genre in movie.genres"
                     :key="genre.id"
-                    class="genre-item font-bold text-slate-500 mr-3"
+                    class="genre-item font-bold text-sm lg:text-base text-slate-500 mr-3 inline-block"
                     >{{ genre.name }}</span
                 >
             </div>
             <div>
-                <p class="text-2xl font-bold">Synopsis</p>
-                <p>{{ movie.overview }}</p>
+                <p class="text-xl text-2xl font-bold">Synopsis</p>
+                <p class="text-sm lg:text-base">{{ movie.overview }}</p>
             </div>
             <div>
-                <p class="text-2xl font-bold">Cast</p>
+                <p class="text-xl lg:text-2xl font-bold">Cast</p>
                 <div class="flex">
                     <img
                         @click="carouselPrev"

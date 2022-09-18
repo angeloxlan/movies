@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AppDetail :id="route.params.id" class="mb-28" />
+        <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
         <ViewShowcase :movies="movies" :title="title" />
     </div>
 </template>
