@@ -47,9 +47,10 @@
         </div>
         <!-- Mobile Navbar -->
         <div
-            class="bg-app-white2 flex items-center justify-between w-full md:hidden"
+            ref="mobileMenuContainer"
+            class="bg-app-white2 flex items-center justify-between w-full md:hidden relative"
         >
-            <div class="ml-4 my-3">
+            <div class="ml-4 my-3" @click="toggleSidemenu">
                 <svg class="w-12" fill="none" viewBox="0 0 78 62">
                     <path
                         fill="#FBFBFB"
@@ -88,6 +89,38 @@
                     </svg>
                 </label>
             </div>
+            <Transition>
+                <div
+                    class="fixed top-0 left-0 h-screen w-screen z-10"
+                    v-if="isSidemenuOpen"
+                >
+                    <div
+                        class="absolute bg-slate-600 opacity-75 h-full w-full"
+                        @click="toggleSidemenu"
+                    ></div>
+                    <div
+                        class="absolute bg-white w-3/4 px-5 py-8 h-full w-full overflow-y-auto"
+                    >
+                        <p class="text-center">LOGO</p>
+                        <ul class="font-bold">
+                            <li>Trending</li>
+                            <li>Top Rated</li>
+                            <li>Upcoming</li>
+                        </ul>
+                        <hr class="border my-4" />
+                        <p class="font-bold">Genres</p>
+                        <ul>
+                            <li
+                                v-for="genre in genres"
+                                :key="genre.id"
+                                class="ml-2"
+                            >
+                                {{ genre.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </Transition>
         </div>
     </div>
 </template>
@@ -100,12 +133,17 @@ import { getMovieGenres } from '@/api/movies.js';
 import { useGenre } from '@/stores/genre.js';
 
 const isDropdownOpen = ref(false);
+const isSidemenuOpen = ref(false);
 const genres = ref([]);
 const useGenreStore = useGenre();
-
+const mobileMenuContainer = ref(null);
+console.log(mobileMenuContainer.value);
 const route = useRoute();
 
-console.log(route.name);
+const toggleSidemenu = () => {
+    isSidemenuOpen.value = !isSidemenuOpen.value;
+    document.body.style.overflowY = isSidemenuOpen.value ? 'hidden' : 'scroll';
+};
 
 getMovieGenres().then((res) => {
     genres.value = res.genres;
@@ -121,6 +159,13 @@ watch(
             );
             useGenreStore.setSelected(genre.name);
         }
+    }
+);
+
+watch(
+    () => mobileMenuContainer.value,
+    (newValue) => {
+        console.log(newValue);
     }
 );
 </script>
@@ -159,5 +204,15 @@ label {
 
 #searchContainer:focus-within {
     border: 1px solid #2d2d2e;
+}
+
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
 }
 </style>

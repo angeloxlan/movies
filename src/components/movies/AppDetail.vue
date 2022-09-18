@@ -1,6 +1,10 @@
 <template>
-    <div class="container my-0 mx-auto mt-12 flex flex-col lg:flex-row justify-center">
-        <div class="bg-app-white2 w-2/3 lg:w-1/4 h-auto rounded-xl self-center mb-6 lg:mb-0 shadow-poster">
+    <div
+        class="container my-0 mx-auto mt-12 flex flex-col lg:flex-row justify-center"
+    >
+        <div
+            class="bg-app-white2 w-2/3 lg:w-1/4 h-auto rounded-xl self-center mb-6 lg:mb-0 shadow-poster"
+        >
             <img class="rounded-xl" :src="fullPosterPath" />
         </div>
         <div class="flex flex-col justify-between gap-2 lg:w-2/4 px-8 lg:px-16">
