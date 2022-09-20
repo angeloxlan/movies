@@ -10,7 +10,7 @@ import AppHeader from '@/components/AppHeader.vue';
 <style>
 @media (min-width: 768px) {
     body {
-        overflow-y: scroll!important;
+        overflow-y: scroll !important;
     }
 }
 </style>

@@ -47,7 +47,6 @@
         </div>
         <!-- Mobile Navbar -->
         <div
-            ref="mobileMenuContainer"
             class="bg-app-white2 flex items-center justify-between w-full md:hidden relative"
         >
             <div class="ml-4 my-3" @click="toggleSidemenu">
@@ -103,9 +102,21 @@
                     >
                         <p class="text-center">LOGO</p>
                         <ul class="font-bold">
-                            <li>Trending</li>
-                            <li>Top Rated</li>
-                            <li>Upcoming</li>
+                            <li>
+                                <router-link :to="{ name: 'trending' }"
+                                    >Trending</router-link
+                                >
+                            </li>
+                            <li>
+                                <router-link :to="{ name: 'topRated' }"
+                                    >Top Rated</router-link
+                                >
+                            </li>
+                            <li>
+                                <router-link :to="{ name: 'upcoming' }"
+                                    >Upcoming</router-link
+                                >
+                            </li>
                         </ul>
                         <hr class="border my-4" />
                         <p class="font-bold">Genres</p>
@@ -115,7 +126,18 @@
                                 :key="genre.id"
                                 class="ml-2"
                             >
-                                {{ genre.name }}
+                                <router-link
+                                    class="w-fit"
+                                    :to="{
+                                        name: 'genre',
+                                        params: { id: genre.id },
+                                    }"
+                                    @click="
+                                        useGenreStore.setSelected(genre.name);
+                                        toggleSidemenu();
+                                    "
+                                    >{{ genre.name }}</router-link
+                                >
                             </li>
                         </ul>
                     </div>
@@ -136,8 +158,7 @@ const isDropdownOpen = ref(false);
 const isSidemenuOpen = ref(false);
 const genres = ref([]);
 const useGenreStore = useGenre();
-const mobileMenuContainer = ref(null);
-console.log(mobileMenuContainer.value);
+
 const route = useRoute();
 
 const toggleSidemenu = () => {
@@ -153,19 +174,13 @@ watch(
     () => route.name,
     (newValue) => {
         if (route.name == 'genre') {
-            console.log(route.name);
             const genre = genres.value.find(
                 (genre) => genre.id == route.params.id
             );
             useGenreStore.setSelected(genre.name);
+            return;
         }
-    }
-);
-
-watch(
-    () => mobileMenuContainer.value,
-    (newValue) => {
-        console.log(newValue);
+        toggleSidemenu();
     }
 );
 </script>
