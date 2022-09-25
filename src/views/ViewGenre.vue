@@ -26,4 +26,13 @@ watch(
         });
     }
 );
+
+watch(
+    () => route.query.page,
+    (newValue) => {
+        getMoviesByGenre(route.params.id, newValue).then((res) => {
+            movies.value = res;
+        });
+    }
+);
 </script>

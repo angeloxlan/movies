@@ -11,27 +11,33 @@ const params = {
     },
 };
 
-export async function getTrendingDay() {
+export async function getTrendingDay(page = 1) {
     return fetch(
-        `${URL}/trending/movie/day?api_key=${import.meta.env.VITE_API_KEY}`,
+        `${URL}/trending/movie/day?page=${page}&api_key=${
+            import.meta.env.VITE_API_KEY
+        }`,
         params
     )
         .then((res) => res.json())
         .then((res) => res);
 }
 
-export async function getTopRated() {
+export async function getTopRated(page = 1) {
     return fetch(
-        `${URL}/movie/top_rated?api_key=${import.meta.env.VITE_API_KEY}`,
+        `${URL}/movie/top_rated?page=${page}&api_key=${
+            import.meta.env.VITE_API_KEY
+        }`,
         params
     )
         .then((res) => res.json())
         .then((res) => res);
 }
 
-export async function getUpcoming() {
+export async function getUpcoming(page = 1) {
     return fetch(
-        `${URL}/movie/upcoming?api_key=${import.meta.env.VITE_API_KEY}`,
+        `${URL}/movie/upcoming?page=${page}&api_key=${
+            import.meta.env.VITE_API_KEY
+        }`,
         params
     )
         .then((res) => res.json())
@@ -47,9 +53,9 @@ export async function getMovieGenres() {
         .then((res) => res);
 }
 
-export async function getMoviesByGenre(id) {
+export async function getMoviesByGenre(id, page = 1) {
     return fetch(
-        `${URL}/discover/movie?api_key=${
+        `${URL}/discover/movie?page=${page}&api_key=${
             import.meta.env.VITE_API_KEY
         }&with_genres=${id}`,
         params
@@ -76,9 +82,9 @@ export async function getCast(id) {
         .then((res) => res);
 }
 
-export async function getRecommended(id) {
+export async function getRecommended(id, page = 1) {
     return fetch(
-        `${URL}/movie/${id}/recommendations?api_key=${
+        `${URL}/movie/${id}/recommendations?page=${page}&api_key=${
             import.meta.env.VITE_API_KEY
         }`,
         params

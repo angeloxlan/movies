@@ -29,4 +29,13 @@ watch(
         });
     }
 );
+
+watch(
+    () => route.query.page,
+    (newValue) => {
+        getRecommended(route.params.id, newValue).then((res) => {
+            movies.value = res;
+        });
+    }
+);
 </script>
