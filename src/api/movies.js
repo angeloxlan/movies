@@ -92,3 +92,14 @@ export async function getRecommended(id, page = 1) {
         .then((res) => res.json())
         .then((res) => res);
 }
+
+export async function getSearch(query) {
+    return fetch(
+        `${URL}/search/movie?query=${query}&api_key=${
+            import.meta.env.VITE_API_KEY
+        }`,
+        params
+    )
+        .then((res) => res.json())
+        .then((res) => res);
+}

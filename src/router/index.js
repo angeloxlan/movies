@@ -38,6 +38,11 @@ const router = createRouter({
                 id: Number(route.params.id);
             },
         },
+        {
+            path: '/search',
+            name: 'search',
+            component: () => import('@/views/ViewSearch.vue'),
+        },
     ],
 });
 
