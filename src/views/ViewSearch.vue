@@ -17,6 +17,7 @@ getSearch(route.query.query).then((res) => (movies.value = res));
 watch(
     () => route.query.query,
     (newValue) => {
+        title.value = `"${newValue}"`;
         getSearch(newValue).then((res) => (movies.value = res));
     }
 );

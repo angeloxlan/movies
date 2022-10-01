@@ -1,14 +1,13 @@
 <template>
     <div
-        @click="
-            isSearchFieldOpen = true;
-            inputSearch.focus();
-        "
+        @click="openSearchInput"
+        ref="inputSearchContainer"
         class="searchContainer bg-app-white1 border-2 flex h-10 mr-3 max-w-52 rounded-full"
     >
         <input
             ref="inputSearch"
-            v-model="query"
+            v-model.trim="query"
+            @keyup.enter="search"
             type="text"
             placeholder="Search for movies"
             :class="{ openSearchInput: isSearchFieldOpen }"
@@ -41,21 +40,43 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { getSearch } from '@/api/movies.js';
 
 const inputSearch = ref(null);
+const inputSearchContainer = ref(null);
 const isSearchFieldOpen = ref(false);
 const query = ref(null);
 const result = ref(null);
 const router = useRouter();
 
 const search = () => {
-    /* getSearch(query.value).then((res) => (result.value = res)); */
-    if (isSearchFieldOpen.value)
+    if (isSearchFieldOpen.value && query.value)
         router.push({ name: 'search', query: { query: query.value } });
 };
+
+const openSearchInput = () => {
+    isSearchFieldOpen.value = true;
+    inputSearch.value.focus();
+};
+
+const closeSearchInput = () => {
+    if (!query.value) isSearchFieldOpen.value = false;
+};
+
+const clickOutside = (e) => {
+    if (!inputSearchContainer.value.contains(e.target) && !query.value)
+        isSearchFieldOpen.value = false;
+};
+
+onMounted(() => {
+    document.addEventListener('click', clickOutside);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('click', clickOutside);
+});
 </script>
 
 <style scoped>
@@ -71,6 +92,10 @@ input {
     opacity: 0;
     transition: all 0.2s ease-out;
 }
+
+/* input:not(:focus) { */
+/*     width: 1px; */
+/* } */
 
 .openSearchInput {
     width: 13rem;
