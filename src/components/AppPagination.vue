@@ -3,7 +3,7 @@
         <router-link
             :to="{
                 name: route.name,
-                query: { page: usePaginationStore.prevPage },
+                query: { ...route.query, page: usePaginationStore.prevPage },
             }"
             v-if="usePaginationStore.currentPage > 1"
             class="flex gap-2 bg-app-black text-white px-5 py-2 rounded-full hover:scale-105 transition duration-300 ease-int-out"
@@ -28,7 +28,7 @@
         <router-link
             :to="{
                 name: route.name,
-                query: { page: usePaginationStore.nextPage },
+                query: { ...route.query, page: usePaginationStore.nextPage },
             }"
             v-if="
                 usePaginationStore.currentPage < usePaginationStore.totalPages

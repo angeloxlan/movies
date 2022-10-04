@@ -24,7 +24,7 @@ module.exports = {
                 '2/3': '66.666667%',
             },
             boxShadow: {
-                poster: '5px 4px 25px 6px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);',
+                poster: '0px 0px 20px -4px rgba(107,107,107,0.75);',
                 dropdown: '0px 0px 23px -2px rgba(0,0,0,0.69)',
             },
             borderRadius: {

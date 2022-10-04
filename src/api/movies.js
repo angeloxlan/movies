@@ -93,9 +93,9 @@ export async function getRecommended(id, page = 1) {
         .then((res) => res);
 }
 
-export async function getSearch(query) {
+export async function getSearch(query, page = 1) {
     return fetch(
-        `${URL}/search/movie?query=${query}&api_key=${
+        `${URL}/search/movie?query=${query}&page=${page}&api_key=${
             import.meta.env.VITE_API_KEY
         }`,
         params

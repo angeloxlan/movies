@@ -6,17 +6,17 @@
         >
             <ul class="flex justify-around h-32 text-stone-700">
                 <li class="self-center"><a href="#">LOGO</a></li>
-                <li class="self-center">
+                <li class="self-center hover:scale-110 transition duration-300 ease-int-out">
                     <router-link :to="{ name: 'trending' }"
                         >Trending</router-link
                     >
                 </li>
-                <li class="self-center">
+                <li class="self-center hover:scale-110 transition duration-300 ease-int-out">
                     <router-link :to="{ name: 'topRated' }"
                         >Top Rated</router-link
                     >
                 </li>
-                <li class="self-center">
+                <li class="self-center hover:scale-110 transition duration-300 ease-int-out">
                     <router-link :to="{ name: 'upcoming' }"
                         >Upcoming</router-link
                     >
@@ -27,7 +27,7 @@
                         <template #menu>
                             <div class="w-120 grid grid-cols-3">
                                 <router-link
-                                    class="w-fit"
+                                    class="w-fit hover:scale-110 transition duration-300 ease-int-out"
                                     :to="{
                                         name: 'genre',
                                         params: { id: genre.id },
@@ -161,10 +161,9 @@ watch(
 
 <style scoped>
 li > .router-link-active {
-    @apply border-b-2;
     @apply border-gray-400;
-    @apply shadow-lg;
     @apply text-black;
+    box-shadow: 0px 13px 25px -7px rgb(107 107 107 / 75%);
 }
 
 .v-enter-active,

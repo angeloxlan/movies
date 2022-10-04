@@ -80,6 +80,7 @@ const cast = ref([]);
 const carouselItems = ref([]);
 
 const fullPosterPath = computed(() => {
+    if (!movie.value.poster_path) return '@/assets/img/movie-placeholder-1.svg';
     return `${POSTER_PATH_DETAIL}${movie.value.poster_path}`;
 });
 const fullCastImgPath = computed(() => {

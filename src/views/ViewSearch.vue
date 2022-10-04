@@ -12,13 +12,14 @@ const movies = ref([]);
 const title = ref('Search');
 const route = useRoute();
 
-getSearch(route.query.query).then((res) => (movies.value = res));
+getSearch(route.query.query, route.query.page).then((res) => (movies.value = res));
+title.value = `"${route.query.query}"`;
 
 watch(
-    () => route.query.query,
-    (newValue) => {
-        title.value = `"${newValue}"`;
-        getSearch(newValue).then((res) => (movies.value = res));
+    [() => route.query.query, () => route.query.page],
+    ([newQuery, newPage]) => {
+        title.value = `"${newQuery}"`;
+        getSearch(newQuery, newPage).then((res) => (movies.value = res));
     }
 );
 </script>
