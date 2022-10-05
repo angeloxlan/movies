@@ -38,15 +38,18 @@ const props = defineProps({
     title: String,
 });
 const route = useRoute();
+const updatePagination = () => {
+    usePaginationStore.setCurrentPage(route.query.page ?? props.movies.page);
+    usePaginationStore.setTotalPages(props.movies.total_pages);
+    usePaginationStore.setTotalResults(props.movies.total_results);
+};
+
+updatePagination();
 
 watch(
     () => props.movies,
     (newValue) => {
-        usePaginationStore.setCurrentPage(
-            route.query.page ?? props.movies.page
-        );
-        usePaginationStore.setTotalPages(props.movies.total_pages);
-        usePaginationStore.setTotalResults(props.movies.total_results);
+        updatePagination();
     }
 );
 </script>

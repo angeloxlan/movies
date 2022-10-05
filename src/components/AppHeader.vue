@@ -6,17 +6,23 @@
         >
             <ul class="flex justify-around h-32 text-stone-700">
                 <li class="self-center"><a href="#">LOGO</a></li>
-                <li class="self-center hover:scale-110 transition duration-300 ease-int-out">
+                <li
+                    class="self-center hover:scale-110 transition duration-300 ease-int-out"
+                >
                     <router-link :to="{ name: 'trending' }"
                         >Trending</router-link
                     >
                 </li>
-                <li class="self-center hover:scale-110 transition duration-300 ease-int-out">
+                <li
+                    class="self-center hover:scale-110 transition duration-300 ease-int-out"
+                >
                     <router-link :to="{ name: 'topRated' }"
                         >Top Rated</router-link
                     >
                 </li>
-                <li class="self-center hover:scale-110 transition duration-300 ease-int-out">
+                <li
+                    class="self-center hover:scale-110 transition duration-300 ease-int-out"
+                >
                     <router-link :to="{ name: 'upcoming' }"
                         >Upcoming</router-link
                     >

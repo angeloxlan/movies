@@ -50,14 +50,10 @@ const props = defineProps({
     voteCount: Number,
 });
 
-const imgPlaceholders = [
-    placholder1,
-    placholder2,
-    placholder3,
-];
+const imgPlaceholders = [placholder1, placholder2, placholder3];
 
 const fullPosterPath = computed(() => {
-    if (!props.posterPath) return imgPlaceholders[ randomNumber(0,2) ];
+    if (!props.posterPath) return imgPlaceholders[randomNumber(0, 2)];
     return `${POSTER_PATH}${props.posterPath}`;
 });
 
@@ -69,9 +65,9 @@ const roundedVoteAverage = computed(() => {
     return props.voteAverage.toFixed(1);
 });
 
-const randomNumber = (min, max) => { 
+const randomNumber = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 </script>
