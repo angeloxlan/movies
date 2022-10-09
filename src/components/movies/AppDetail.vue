@@ -103,6 +103,7 @@
                 </div>
             </div>
         </div>
+        <!-- fin-detail-placeholder -->
         <div
             v-else
             class="container my-0 mx-auto mt-12 flex flex-col lg:flex-row justify-center"
@@ -136,12 +137,13 @@
                 </div>
                 <div>
                     <p class="text-xl lg:text-2xl font-bold">Cast</p>
-                    <div class="flex">
-                        <img
-                            @click="carouselPrev"
-                            src="@/assets/img/dropdown-icon.svg"
-                            class="w-7 rotate-90"
-                        />
+                    <div class="flex gap-2">
+                        <button @click="carouselPrev">
+                            <img
+                                src="@/assets/img/dropdown-icon.svg"
+                                class="w-80 rotate-90"
+                            />
+                        </button>
                         <div class="relative overflow-hidden">
                             <div
                                 class="carousel relative top-0 left-0 flex mx-auto gap-2"
@@ -155,11 +157,12 @@
                                 />
                             </div>
                         </div>
-                        <img
-                            @click="carouselNext"
-                            src="@/assets/img/dropdown-icon.svg"
-                            class="w-7 rotate-270"
-                        />
+                        <button @click="carouselNext">
+                            <img
+                                src="@/assets/img/dropdown-icon.svg"
+                                class="w-80 rotate-270"
+                            />
+                        </button>
                     </div>
                 </div>
                 <div class="flex gap-2">
@@ -172,11 +175,14 @@
                 </div>
             </div>
         </div>
+        <!-- fin-detail-container -->
     </div>
 </template>
 
 <script setup>
 import { computed, defineProps, ref, watch } from 'vue';
+import posterPlaceholder from '@/assets/img/movie-placeholder-1.svg';
+import castPlaceholder from '@/assets/img/cast-placeholder.svg';
 import {
     getCast,
     getDetail,
@@ -193,11 +199,14 @@ const carouselItems = ref([]);
 const isLoading = ref(true);
 
 const fullPosterPath = computed(() => {
-    if (!movie.value.poster_path) return '@/assets/img/movie-placeholder-1.svg';
+    if (!movie.value.poster_path) return posterPlaceholder;
     return `${POSTER_PATH_DETAIL}${movie.value.poster_path}`;
 });
 const fullCastImgPath = computed(() => {
-    return (profilePath) => `${CAST_IMG_PATH}${profilePath}`;
+    return (profilePath) => {
+        if (!profilePath) return castPlaceholder;
+        return `${CAST_IMG_PATH}${profilePath}`;
+    };
 });
 
 getDetail(props.id).then((res) => {
