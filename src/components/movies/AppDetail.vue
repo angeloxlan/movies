@@ -137,30 +137,34 @@
                 </div>
                 <div>
                     <p class="text-xl lg:text-2xl font-bold">Cast</p>
-                    <div class="flex gap-2">
+                    <div class="flex gap-2 h-[4.5rem]">
                         <button @click="carouselPrev">
                             <img
                                 src="@/assets/img/dropdown-icon.svg"
-                                class="w-80 rotate-90"
+                                class="w-8 rotate-90"
                             />
                         </button>
-                        <div class="relative overflow-hidden">
+                        <div class="relative overflow-hidden w-full z-[1]">
                             <div
-                                class="carousel relative top-0 left-0 flex mx-auto gap-2"
+                                ref="carouselContainer"
+                                class="carousel relative top-0 left-0 flex h-full w-full z-[1]"
                             >
                                 <img
-                                    v-for="member in cast"
+                                    v-for="(member, index) in cast"
                                     :key="member.id"
                                     :src="fullCastImgPath(member.profile_path)"
                                     ref="carouselItems"
-                                    class="w-12 rounded-lg"
+                                    class="overflow-hidden w-12 rounded-lg absolute top-0 left-0 z-[1] transition-all"
+                                    :style="{
+                                        transform: getInitialPosition(index),
+                                    }"
                                 />
                             </div>
                         </div>
                         <button @click="carouselNext">
                             <img
                                 src="@/assets/img/dropdown-icon.svg"
-                                class="w-80 rotate-270"
+                                class="w-8 rotate-270"
                             />
                         </button>
                     </div>
@@ -196,6 +200,7 @@ const props = defineProps({
 const movie = ref([]);
 const cast = ref([]);
 const carouselItems = ref([]);
+const carouselContainer = ref([]);
 const isLoading = ref(true);
 
 const fullPosterPath = computed(() => {
@@ -218,12 +223,46 @@ getCast(props.id).then((res) => {
     cast.value = res.cast;
 });
 
+const getInitialPosition = (index) => {
+    const position = index * 56;
+    return `translate(${position}px, 0px)`;
+};
+
 const carouselPrev = () => {
-    console.log('prev');
+    if (
+        carouselContainer.value.scrollWidth <=
+        carouselContainer.value.offsetWidth
+    )
+        return;
+
+    carouselItems.value.map((item) => {
+        let stepPrev;
+        const xPosition = getXPosition(item);
+
+        stepPrev = xPosition - 56;
+        if (stepPrev < 0) stepPrev = carouselContainer.value.scrollWidth - 48;
+
+        item.style.transform = `translate(${stepPrev}px, 0px)`;
+    });
 };
 
 const carouselNext = () => {
-    console.log('next');
+    if (
+        carouselContainer.value.scrollWidth <=
+        carouselContainer.value.offsetWidth
+    )
+        return;
+
+    carouselItems.value.map((item) => {
+        let stepNext;
+        const xPosition = getXPosition(item);
+
+        stepNext = xPosition + 56;
+        if (stepNext >= carouselContainer.value.scrollWidth)
+            stepNext = carouselContainer.value.scrollWidth - xPosition - 48;
+
+        item.style.transform = `translate(${stepNext}px, 0px)`;
+    });
 };
 
 watch(
@@ -241,6 +280,14 @@ watch(
         });
     }
 );
+
+const getXPosition = (element) => {
+    const styles = window.getComputedStyle(element);
+    const matrix =
+        styles.transform || styles.webkitTransform || styles.mozTransform;
+    const matrixValues = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
+    return Number(matrixValues[4]);
+};
 </script>
 
 <style scoped>
