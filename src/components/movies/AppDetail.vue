@@ -148,7 +148,7 @@
                         <div class="relative overflow-hidden w-full z-[1]">
                             <div
                                 ref="carouselContainer"
-                                class="carousel relative top-0 left-0 flex h-full w-full z-[1]"
+                                class="carousel relative top-0 left-0 flex h-full w-full z-[1] gap-2"
                             >
                                 <img
                                     v-for="(member, index) in cast"
@@ -236,29 +236,6 @@ const getInitialPosition = (index) => {
     return `translate(${position}px, 0px)`;
 };
 
-const carouselPrev = () => {
-    if (
-        carouselContainer.value.scrollWidth <=
-        carouselContainer.value.offsetWidth
-    )
-        return;
-
-    prevBtn.value.disabled = true;
-    nextBtn.value.disabled = true;
-    carouselItems.value.map((item) => {
-        let stepPrev;
-        const xPosition = getXPosition(item);
-
-        stepPrev = xPosition - 56;
-        if (stepPrev < -56) {
-            item.style.opacity = 0;
-            stepPrev = carouselContainer.value.scrollWidth - 48;
-        }
-
-        item.style.transform = `translate(${stepPrev}px, 0px)`;
-    });
-};
-
 const carouselNext = () => {
     if (
         carouselContainer.value.scrollWidth <=
@@ -272,13 +249,36 @@ const carouselNext = () => {
         let stepNext;
         const xPosition = getXPosition(item);
 
-        stepNext = xPosition + 56;
-        if (stepNext >= carouselContainer.value.scrollWidth) {
+        stepNext = xPosition - 56;
+        if (stepNext < -56) {
             item.style.opacity = 0;
-            stepNext = -56;
+            stepNext = carouselContainer.value.scrollWidth - 48;
         }
 
         item.style.transform = `translate(${stepNext}px, 0px)`;
+    });
+};
+
+const carouselPrev = () => {
+    if (
+        carouselContainer.value.scrollWidth <=
+        carouselContainer.value.offsetWidth
+    )
+        return;
+
+    prevBtn.value.disabled = true;
+    nextBtn.value.disabled = true;
+    carouselItems.value.map((item) => {
+        let stepPrev;
+        const xPosition = getXPosition(item);
+
+        stepPrev = xPosition + 56;
+        if (stepPrev >= carouselContainer.value.scrollWidth) {
+            item.style.opacity = 0;
+            stepPrev = -56;
+        }
+
+        item.style.transform = `translate(${stepPrev}px, 0px)`;
     });
 };
 
