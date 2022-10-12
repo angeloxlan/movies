@@ -138,7 +138,8 @@
                 <div>
                     <p class="text-xl lg:text-2xl font-bold">Cast</p>
                     <div class="flex gap-2 h-[4.5rem]">
-                        <button @click="carouselPrev">
+                        <button @click="carouselPrev"
+                            ref="prevBtn">
                             <img
                                 src="@/assets/img/dropdown-icon.svg"
                                 class="w-8 rotate-90"
@@ -153,15 +154,17 @@
                                     v-for="(member, index) in cast"
                                     :key="member.id"
                                     :src="fullCastImgPath(member.profile_path)"
+                                    @transitionend="hideTranslate"
                                     ref="carouselItems"
-                                    class="overflow-hidden w-12 rounded-lg absolute top-0 left-0 z-[1] transition-all"
+                                    class="overflow-hidden w-12 rounded-lg absolute top-0 left-0 z-[1] transition-transform duration-500"
                                     :style="{
                                         transform: getInitialPosition(index),
                                     }"
                                 />
                             </div>
                         </div>
-                        <button @click="carouselNext">
+                        <button @click="carouselNext"
+                            ref="nextBtn">
                             <img
                                 src="@/assets/img/dropdown-icon.svg"
                                 class="w-8 rotate-270"
@@ -201,6 +204,8 @@ const movie = ref([]);
 const cast = ref([]);
 const carouselItems = ref([]);
 const carouselContainer = ref([]);
+const prevBtn = ref(null);
+const nextBtn = ref(null);
 const isLoading = ref(true);
 
 const fullPosterPath = computed(() => {
@@ -225,6 +230,9 @@ getCast(props.id).then((res) => {
 
 const getInitialPosition = (index) => {
     const position = index * 56;
+    if ((index + 1) == cast.value.length) 
+        return `translate(-56px, 0px)`;
+
     return `translate(${position}px, 0px)`;
 };
 
@@ -235,12 +243,17 @@ const carouselPrev = () => {
     )
         return;
 
+    prevBtn.value.disabled = true;
+    nextBtn.value.disabled = true;
     carouselItems.value.map((item) => {
         let stepPrev;
         const xPosition = getXPosition(item);
 
         stepPrev = xPosition - 56;
-        if (stepPrev < 0) stepPrev = carouselContainer.value.scrollWidth - 48;
+        if (stepPrev < -56) {
+            item.style.opacity = 0;
+            stepPrev = carouselContainer.value.scrollWidth - 48;
+        }
 
         item.style.transform = `translate(${stepPrev}px, 0px)`;
     });
@@ -253,13 +266,17 @@ const carouselNext = () => {
     )
         return;
 
+    prevBtn.value.disabled = true;
+    nextBtn.value.disabled = true;
     carouselItems.value.map((item) => {
         let stepNext;
         const xPosition = getXPosition(item);
 
         stepNext = xPosition + 56;
-        if (stepNext >= carouselContainer.value.scrollWidth)
-            stepNext = carouselContainer.value.scrollWidth - xPosition - 48;
+        if (stepNext >= carouselContainer.value.scrollWidth) {
+            item.style.opacity = 0;
+            stepNext = -56;
+        }
 
         item.style.transform = `translate(${stepNext}px, 0px)`;
     });
@@ -288,6 +305,14 @@ const getXPosition = (element) => {
     const matrixValues = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
     return Number(matrixValues[4]);
 };
+
+const hideTranslate = (event) => {
+    const img = event.target;
+    
+    if (img.style.opacity == 0) img.style.opacity = 1;
+    prevBtn.value.disabled = false;
+    nextBtn.value.disabled = false;
+}
 </script>
 
 <style scoped>
