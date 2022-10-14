@@ -121,6 +121,26 @@
                         {{ movie.title }}
                     </p>
                     <p class="text-sm lg:text-base">{{ movie.tagline }}</p>
+                    <div class="flex gap-4 mt-2">
+                        <div class="flex gap-3">
+                            <star-rating
+                                :rating="rateVoteAverage"
+                                :increment="0.5"
+                                :show-rating="false"
+                                read-only
+                                :star-size="15"
+                                :padding="2"
+                                :rounded-corners="true"
+                                :border-color="'#37474f'"
+                                :active-color="'#37474f'"
+                            />
+                            <span>{{ movie.vote_average }}</span>
+                        </div>
+                        <div>&hyphen;</div>
+                        <div class="text-slate-500">
+                            {{ movieYear }}
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <p class="text-xl lg:text-2xl font-bold">Genres</p>
@@ -187,6 +207,7 @@
 
 <script setup>
 import { computed, defineProps, ref, watch } from 'vue';
+import StarRating from 'vue-star-rating';
 import posterPlaceholder from '@/assets/img/movie-placeholder-1.svg';
 import castPlaceholder from '@/assets/img/cast-placeholder.svg';
 import {
@@ -219,6 +240,15 @@ const fullCastImgPath = computed(() => {
         if (!profilePath) return castPlaceholder;
         return `${CAST_IMG_PATH}${profilePath}`;
     };
+});
+
+const rateVoteAverage = computed(() => {
+    return movie.value.vote_average / 2;
+});
+
+const movieYear = computed(() => {
+    const movieDate = new Date(movie.value.release_date);
+    return movieDate.getFullYear();
 });
 
 getDetail(props.id).then((res) => {
