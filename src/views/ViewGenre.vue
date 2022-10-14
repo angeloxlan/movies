@@ -1,6 +1,6 @@
 <template>
     <AppSpinner v-if="isLoading" class="min-h-4/5" />
-    <ViewShowcase v-else :movies="movies" :title="title" />
+    <ViewShowcase v-else :movies="movies" :title="useGenreStore.selected" />
 </template>
 
 <script setup>
