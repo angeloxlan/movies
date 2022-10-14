@@ -138,8 +138,7 @@
                 <div>
                     <p class="text-xl lg:text-2xl font-bold">Cast</p>
                     <div class="flex gap-2 h-[4.5rem]">
-                        <button @click="carouselPrev"
-                            ref="prevBtn">
+                        <button @click="carouselPrev" ref="prevBtn">
                             <img
                                 src="@/assets/img/dropdown-icon.svg"
                                 class="w-8 rotate-90"
@@ -148,7 +147,7 @@
                         <div class="relative overflow-hidden w-full z-[1]">
                             <div
                                 ref="carouselContainer"
-                                class="carousel relative top-0 left-0 flex h-full w-full z-[1] gap-2"
+                                class="carousel relative top-0 left-0 flex h-full w-full z-[1]"
                             >
                                 <img
                                     v-for="(member, index) in cast"
@@ -156,15 +155,15 @@
                                     :src="fullCastImgPath(member.profile_path)"
                                     @transitionend="hideTranslate"
                                     ref="carouselItems"
-                                    class="overflow-hidden w-12 rounded-lg absolute top-0 left-0 z-[1] transition-transform duration-500"
+                                    class="carousel-item overflow-hidden w-12 rounded-lg absolute top-0 left-0 mr-4 z-[1] transition-transform duration-500"
                                     :style="{
                                         transform: getInitialPosition(index),
+                                        width: widthCarouselItem + 'px',
                                     }"
                                 />
                             </div>
                         </div>
-                        <button @click="carouselNext"
-                            ref="nextBtn">
+                        <button @click="carouselNext" ref="nextBtn">
                             <img
                                 src="@/assets/img/dropdown-icon.svg"
                                 class="w-8 rotate-270"
@@ -208,6 +207,9 @@ const prevBtn = ref(null);
 const nextBtn = ref(null);
 const isLoading = ref(true);
 
+const widthCarouselItem = 48;
+const carouselSpaceItems = 16;
+
 const fullPosterPath = computed(() => {
     if (!movie.value.poster_path) return posterPlaceholder;
     return `${POSTER_PATH_DETAIL}${movie.value.poster_path}`;
@@ -229,9 +231,11 @@ getCast(props.id).then((res) => {
 });
 
 const getInitialPosition = (index) => {
-    const position = index * 56;
-    if ((index + 1) == cast.value.length) 
-        return `translate(-56px, 0px)`;
+    const totalWidth = widthCarouselItem + carouselSpaceItems;
+
+    const position = index * totalWidth;
+    if (index + 1 == cast.value.length)
+        return `translate(-${totalWidth}px, 0px)`;
 
     return `translate(${position}px, 0px)`;
 };
@@ -249,10 +253,12 @@ const carouselNext = () => {
         let stepNext;
         const xPosition = getXPosition(item);
 
-        stepNext = xPosition - 56;
-        if (stepNext < -56) {
+        const totalWidth = widthCarouselItem + carouselSpaceItems;
+
+        stepNext = xPosition - totalWidth;
+        if (stepNext < -totalWidth) {
             item.style.opacity = 0;
-            stepNext = carouselContainer.value.scrollWidth - 48;
+            stepNext = carouselContainer.value.scrollWidth - widthCarouselItem;
         }
 
         item.style.transform = `translate(${stepNext}px, 0px)`;
@@ -272,10 +278,12 @@ const carouselPrev = () => {
         let stepPrev;
         const xPosition = getXPosition(item);
 
-        stepPrev = xPosition + 56;
+        const totalWidth = widthCarouselItem + carouselSpaceItems;
+
+        stepPrev = xPosition + totalWidth;
         if (stepPrev >= carouselContainer.value.scrollWidth) {
             item.style.opacity = 0;
-            stepPrev = -56;
+            stepPrev = -totalWidth;
         }
 
         item.style.transform = `translate(${stepPrev}px, 0px)`;
@@ -308,11 +316,11 @@ const getXPosition = (element) => {
 
 const hideTranslate = (event) => {
     const img = event.target;
-    
+
     if (img.style.opacity == 0) img.style.opacity = 1;
     prevBtn.value.disabled = false;
     nextBtn.value.disabled = false;
-}
+};
 </script>
 
 <style scoped>
