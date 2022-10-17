@@ -7,7 +7,7 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import ViewShowcase from '@/views/ViewShowcase.vue';
-import AppSpinner from '@/components/AppSpinner.vue';
+import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { getMoviesByGenre } from '@/api/movies.js';
 import { useGenre } from '@/stores/genre.js';
 

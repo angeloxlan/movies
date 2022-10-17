@@ -6,7 +6,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import ViewShowcase from '@/views/ViewShowcase.vue';
-import AppSpinner from '@/components/AppSpinner.vue';
+import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { useRoute } from 'vue-router';
 import { getUpcoming } from '@/api/movies.js';
 

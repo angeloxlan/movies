@@ -10,7 +10,7 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import AppDetail from '@/components/movies/AppDetail.vue';
-import AppSpinner from '@/components/AppSpinner.vue';
+import AppSpinner from '@/components/ui/AppSpinner.vue';
 import ViewShowcase from '@/views/ViewShowcase.vue';
 import { getRecommended } from '@/api/movies.js';
 
