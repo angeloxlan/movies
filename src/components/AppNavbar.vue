@@ -38,10 +38,10 @@
                                         name: 'genre',
                                         params: { id: genre.id },
                                     }"
-                                    v-for="genre in genres"
+                                    v-for="genre in useGenreStore.genres"
                                     :key="genre.id"
                                     @click="
-                                        useGenreStore.setSelected(genre.name)
+                                        useGenreStore.setSelection(genre.id)
                                     "
                                     >{{ genre.name }}</router-link
                                 >
@@ -101,7 +101,7 @@
                         <p class="font-bold">Genres</p>
                         <ul>
                             <li
-                                v-for="genre in genres"
+                                v-for="genre in useGenreStore.genres"
                                 :key="genre.id"
                                 class="ml-2"
                             >
@@ -112,7 +112,7 @@
                                         params: { id: genre.id },
                                     }"
                                     @click="
-                                        useGenreStore.setSelected(genre.name);
+                                        useGenreStore.setSelection(genre.id);
                                         toggleSidemenu();
                                     "
                                     >{{ genre.name }}</router-link
@@ -128,10 +128,9 @@
 
 <script setup>
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import AppDropdown from '@/components/AppDropdown.vue';
-import AppSearchInput from '@/components/AppSearchInput.vue';
+import AppDropdown from '@/components/ui/AppDropdown.vue';
+import AppSearchInput from '@/components/ui/AppSearchInput.vue';
 import { useRoute } from 'vue-router';
-import { getMovieGenres } from '@/api/movies.js';
 import { useGenre } from '@/stores/genre.js';
 
 const isDropdownOpen = ref(false);
@@ -146,20 +145,9 @@ const toggleSidemenu = () => {
     document.body.style.overflowY = isSidemenuOpen.value ? 'hidden' : 'scroll';
 };
 
-getMovieGenres().then((res) => {
-    genres.value = res.genres;
-});
-
 watch(
     () => route.name,
     (newValue) => {
-        if (route.name == 'genre') {
-            const genre = genres.value.find(
-                (genre) => genre.id == route.params.id
-            );
-            useGenreStore.setSelected(genre.name);
-            return;
-        }
         if (isSidemenuOpen.value) toggleSidemenu();
     }
 );

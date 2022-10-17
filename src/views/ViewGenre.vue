@@ -1,6 +1,6 @@
 <template>
     <AppSpinner v-if="isLoading" class="min-h-4/5" />
-    <ViewShowcase v-else :movies="movies" :title="useGenreStore.selected" />
+    <ViewShowcase v-else :movies="movies" :title="useGenreStore.getSelectionName" />
 </template>
 
 <script setup>
@@ -21,6 +21,8 @@ getMoviesByGenre(route.params.id).then((res) => {
     isLoading.value = false;
 });
 
+useGenreStore.setSelection(route.params.id);
+
 watch(
     () => route.params.id,
     (newValue) => {
@@ -30,6 +32,8 @@ watch(
             movies.value = res;
             isLoading.value = false;
         });
+
+        useGenreStore.setSelection(newValue);
     }
 );
 
