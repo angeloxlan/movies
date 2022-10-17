@@ -21,17 +21,29 @@ export const usePagination = defineStore('pagination', {
         setTotalResults(totalResults) {
             this.totalResults = Number(totalResults);
         },
-        goPrev() {
-            this.currentPage -= 1;
-            this.updatePagination();
-        },
-        goNext() {
-            this.currentPage += 1;
-            this.updatePagination();
-        },
+        // goPrev() {
+        //     this.currentPage -= 1;
+        //     this.updatePagination();
+        // },
+        // goNext() {
+        //     this.currentPage += 1;
+        //     this.updatePagination();
+        // },
         updatePagination() {
             this.prevPage = this.currentPage - 1;
             this.nextPage = this.currentPage + 1;
+        },
+    },
+    getters: {
+        isPrevPageAvailable() {
+            if (this.currentPage > 1) return true;
+
+            return false;
+        },
+        isNextPageAvailable() {
+            if (this.currentPage < this.totalPages) return true;
+
+            return false;
         },
     },
 });

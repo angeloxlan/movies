@@ -16,7 +16,10 @@
                 :voteCount="movie.vote_count"
             />
         </div>
-        <AppPagination />
+        <AppPagination
+            :totalPages="props.movies.total_pages"
+            :totalResults="props.movies.total_results"
+        />
     </div>
 </template>
 
@@ -24,32 +27,14 @@
 import { defineProps, ref, watch } from 'vue';
 import AppPoster from '@/components/movies/AppPoster.vue';
 import AppPagination from '@/components/AppPagination.vue';
-import { useRoute } from 'vue-router';
-import { usePagination } from '@/stores/pagination.js';
 
-const usePaginationStore = usePagination();
 const props = defineProps({
     movies: {
         page: Number,
-        movies: Array,
+        results: Array,
         total_pages: Number,
         total_results: Number,
     },
     title: String,
 });
-const route = useRoute();
-const updatePagination = () => {
-    usePaginationStore.setCurrentPage(route.query.page ?? props.movies.page);
-    usePaginationStore.setTotalPages(props.movies.total_pages);
-    usePaginationStore.setTotalResults(props.movies.total_results);
-};
-
-updatePagination();
-
-watch(
-    () => props.movies,
-    (newValue) => {
-        updatePagination();
-    }
-);
 </script>

@@ -5,7 +5,7 @@
                 name: route.name,
                 query: { ...route.query, page: usePaginationStore.prevPage },
             }"
-            v-if="usePaginationStore.currentPage > 1"
+            v-if="usePaginationStore.isPrevPageAvailable"
             class="flex gap-2 bg-app-black text-white px-5 py-2 rounded-full hover:scale-105 transition duration-300 ease-int-out"
         >
             <svg
@@ -30,9 +30,7 @@
                 name: route.name,
                 query: { ...route.query, page: usePaginationStore.nextPage },
             }"
-            v-if="
-                usePaginationStore.currentPage < usePaginationStore.totalPages
-            "
+            v-if="usePaginationStore.isNextPageAvailable"
             class="flex gap-2 bg-app-black text-white px-5 py-2 rounded-full hover:scale-105 transition duration-300 ease-int-out"
         >
             Page {{ usePaginationStore.nextPage }}
@@ -55,9 +53,32 @@
 </template>
 
 <script setup>
+import { defineProps } from 'vue';
 import { useRoute } from 'vue-router';
 import { usePagination } from '@/stores/pagination.js';
 
+const props = defineProps({
+    page: {
+        type: Number,
+        default: 1,
+    },
+    totalPages: {
+        type: Number,
+        required: true,
+    },
+    totalResults: {
+        type: Number,
+        required: true,
+    },
+});
 const route = useRoute();
 const usePaginationStore = usePagination();
+
+const updatePagination = () => {
+    usePaginationStore.setCurrentPage(route.query.page ?? props.page);
+    usePaginationStore.setTotalPages(props.totalPages);
+    usePaginationStore.setTotalResults(props.totalResults);
+};
+
+updatePagination();
 </script>

@@ -194,10 +194,18 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <a v-if="movie.homepage" :href="movie.homepage" target="_blank" class="bg-app-white2 px-3 py-2 rounded-full border border-app-black hover:scale-110 transition"
+                    <a
+                        v-if="movie.homepage"
+                        :href="movie.homepage"
+                        target="_blank"
+                        class="bg-app-white2 px-3 py-2 rounded-full border border-app-black hover:scale-110 transition"
                         >Website</a
                     >
-                    <a v-if="imdbLink" :href="imdbLink" target="_blank" class="bg-app-white2 px-3 py-2 rounded-full border border-app-black hover:scale-110 transition"
+                    <a
+                        v-if="imdbLink"
+                        :href="imdbLink"
+                        target="_blank"
+                        class="bg-app-white2 px-3 py-2 rounded-full border border-app-black hover:scale-110 transition"
                         >IMDB</a
                     >
                 </div>
