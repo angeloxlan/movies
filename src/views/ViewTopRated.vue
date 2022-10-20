@@ -4,30 +4,23 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import ViewShowcase from '@/views/ViewShowcase.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { useRoute } from 'vue-router';
 import { getTopRated } from '@/api/movies.js';
 
+const route = useRoute();
+
 const movies = ref([]);
 const title = ref('Top Rated');
-const route = useRoute();
 const isLoading = ref(true);
 
-getTopRated().then((res) => {
-    movies.value = res;
-    isLoading.value = false;
+watchEffect(() => {
+    isLoading.value = true;
+    getTopRated(route.query.page).then((res) => {
+        movies.value = res;
+        isLoading.value = false;
+    });
 });
-
-watch(
-    () => route.query.page,
-    (newValue) => {
-        isLoading.value = true;
-        getTopRated(newValue).then((res) => {
-            movies.value = res;
-            isLoading.value = false;
-        });
-    }
-);
 </script>

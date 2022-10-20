@@ -14,8 +14,9 @@ import AppSpinner from '@/components/ui/AppSpinner.vue';
 import ViewShowcase from '@/views/ViewShowcase.vue';
 import { getRecommended } from '@/api/movies.js';
 
-const movies = ref([]);
 const route = useRoute();
+
+const movies = ref([]);
 const title = ref('Recommended');
 const isLoading = ref(true);
 

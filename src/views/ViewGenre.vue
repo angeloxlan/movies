@@ -11,9 +11,10 @@ import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { getMoviesByGenre } from '@/api/movies.js';
 import { useGenre } from '@/stores/genre.js';
 
+const useGenreStore = useGenre();
+
 const movies = ref([]);
 const route = useRoute();
-const useGenreStore = useGenre();
 const isLoading = ref(true);
 
 getMoviesByGenre(route.params.id).then((res) => {
