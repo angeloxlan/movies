@@ -17,7 +17,6 @@ const title = ref('Trending');
 const isLoading = ref(true);
 
 watchEffect(() => {
-    console.log('cargando trending');
     isLoading.value = true;
     getTrendingDay(route.query.page).then((res) => {
         movies.value = res;

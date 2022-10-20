@@ -3,9 +3,9 @@
         <router-link
             :to="{
                 name: route.name,
-                query: { ...route.query, page: usePaginationStore.prevPage },
+                query: { ...route.query, page: paginationStore.prevPage },
             }"
-            v-if="usePaginationStore.isPrevPageAvailable"
+            v-if="paginationStore.isPrevPageAvailable"
             class="flex gap-2 bg-app-black text-white px-5 py-2 rounded-full hover:scale-105 transition duration-300 ease-int-out"
         >
             <svg
@@ -23,17 +23,17 @@
                 />
             </svg>
 
-            Page {{ usePaginationStore.prevPage }}</router-link
+            Page {{ paginationStore.prevPage }}</router-link
         >
         <router-link
             :to="{
                 name: route.name,
-                query: { ...route.query, page: usePaginationStore.nextPage },
+                query: { ...route.query, page: paginationStore.nextPage },
             }"
-            v-if="usePaginationStore.isNextPageAvailable"
+            v-if="paginationStore.isNextPageAvailable"
             class="flex gap-2 bg-app-black text-white px-5 py-2 rounded-full hover:scale-105 transition duration-300 ease-int-out"
         >
-            Page {{ usePaginationStore.nextPage }}
+            Page {{ paginationStore.nextPage }}
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -53,9 +53,9 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { usePagination } from '@/stores/pagination.js';
+import { usePaginationStore } from '@/stores/pagination.js';
 
 const props = defineProps({
     page: {
@@ -72,13 +72,12 @@ const props = defineProps({
     },
 });
 const route = useRoute();
-const usePaginationStore = usePagination();
+const paginationStore = usePaginationStore();
 
-const updatePagination = () => {
-    usePaginationStore.setCurrentPage(route.query.page ?? props.page);
-    usePaginationStore.setTotalPages(props.totalPages);
-    usePaginationStore.setTotalResults(props.totalResults);
-};
-
-updatePagination();
+watchEffect(() => {
+    paginationStore.currentPage = parseInt(route.query.page ?? props.page);
+    paginationStore.totalPages = props.totalPages;
+    paginationStore.totalResults = props.totalResults;
+    paginationStore.updatePagination();
+});
 </script>

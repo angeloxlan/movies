@@ -29,13 +29,16 @@ const router = createRouter({
             path: '/genre/:id',
             name: 'genre',
             component: () => import('@/views/ViewGenre.vue'),
+            props: (route) => {
+                id: parseInt(route.params.id);
+            },
         },
         {
             path: '/movie/:id',
             name: 'movieDetail',
             component: () => import('@/views/ViewDetail.vue'),
             props: (route) => {
-                id: Number(route.params.id);
+                id: parseInt(route.params.id);
             },
         },
         {

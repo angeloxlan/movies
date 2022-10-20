@@ -17,6 +17,7 @@
             />
         </div>
         <AppPagination
+            :page="props.movies.page"
             :totalPages="props.movies.total_pages"
             :totalResults="props.movies.total_results"
         />

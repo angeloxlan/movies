@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const usePagination = defineStore('pagination', {
+export const usePaginationStore = defineStore('pagination', {
     state: () => {
         return {
             currentPage: 1,
@@ -11,37 +11,19 @@ export const usePagination = defineStore('pagination', {
         };
     },
     actions: {
-        setCurrentPage(page) {
-            this.currentPage = Number(page);
-            this.updatePagination();
-        },
-        setTotalPages(totalPages) {
-            this.totalPages = Number(totalPages);
-        },
-        setTotalResults(totalResults) {
-            this.totalResults = Number(totalResults);
-        },
-        // goPrev() {
-        //     this.currentPage -= 1;
-        //     this.updatePagination();
-        // },
-        // goNext() {
-        //     this.currentPage += 1;
-        //     this.updatePagination();
-        // },
         updatePagination() {
-            this.prevPage = this.currentPage - 1;
-            this.nextPage = this.currentPage + 1;
+            this.prevPage = parseInt(this.currentPage) - 1;
+            this.nextPage = parseInt(this.currentPage) + 1;
         },
     },
     getters: {
-        isPrevPageAvailable() {
-            if (this.currentPage > 1) return true;
+        isPrevPageAvailable: (state) => {
+            if (parseInt(state.currentPage) > 1) return true;
 
             return false;
         },
-        isNextPageAvailable() {
-            if (this.currentPage < this.totalPages) return true;
+        isNextPageAvailable: (state) => {
+            if (parseInt(state.currentPage) < parseInt(state.totalPages)) return true;
 
             return false;
         },

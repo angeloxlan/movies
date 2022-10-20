@@ -6,12 +6,12 @@
 <script setup>
 import AppNavbar from '@/components/AppNavbar.vue';
 import { getMovieGenres } from '@/api/movies.js';
-import { useGenre } from '@/stores/genre.js';
+import { useGenreStore } from '@/stores/genre.js';
 
-const useGenreStore = useGenre();
+const genreStore = useGenreStore();
 
 getMovieGenres().then((res) => {
-    useGenreStore.setGenres(res.genres);
+    genreStore.genres = res.genres;
 });
 </script>
 

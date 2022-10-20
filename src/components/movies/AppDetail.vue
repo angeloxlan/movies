@@ -148,7 +148,6 @@
                         v-for="genre in movie.genres"
                         :key="genre.id"
                         :to="{ name: 'genre', params: { id: genre.id } }"
-                        @click="useGenreStore.setSelected(genre.name)"
                         class="genre-item font-bold text-sm lg:text-base text-slate-500 mr-3 inline-block hover:translate-y-1 transition ease-in-out"
                         >{{ genre.name }}</router-link
                     >
@@ -218,7 +217,6 @@
 <script setup>
 import { computed, defineProps, ref, watch } from 'vue';
 import StarRating from 'vue-star-rating';
-import { useGenre } from '@/stores/genre.js';
 import posterPlaceholder from '@/assets/img/movie-placeholder-1.svg';
 import castPlaceholder from '@/assets/img/cast-placeholder.svg';
 import {
@@ -238,8 +236,6 @@ const carouselContainer = ref([]);
 const prevBtn = ref(null);
 const nextBtn = ref(null);
 const isLoading = ref(true);
-
-const useGenreStore = useGenre();
 
 const widthCarouselItem = 48;
 const carouselSpaceItems = 16;

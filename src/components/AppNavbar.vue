@@ -38,11 +38,8 @@
                                         name: 'genre',
                                         params: { id: genre.id },
                                     }"
-                                    v-for="genre in useGenreStore.genres"
+                                    v-for="genre in genreStore.genres"
                                     :key="genre.id"
-                                    @click="
-                                        useGenreStore.setSelection(genre.id)
-                                    "
                                     >{{ genre.name }}</router-link
                                 >
                             </div>
@@ -101,7 +98,7 @@
                         <p class="font-bold">Genres</p>
                         <ul>
                             <li
-                                v-for="genre in useGenreStore.genres"
+                                v-for="genre in genreStore.genres"
                                 :key="genre.id"
                                 class="ml-2"
                             >
@@ -112,7 +109,6 @@
                                         params: { id: genre.id },
                                     }"
                                     @click="
-                                        useGenreStore.setSelection(genre.id);
                                         toggleSidemenu();
                                     "
                                     >{{ genre.name }}</router-link
@@ -131,14 +127,14 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import AppDropdown from '@/components/ui/AppDropdown.vue';
 import AppSearchInput from '@/components/ui/AppSearchInput.vue';
 import { useRoute } from 'vue-router';
-import { useGenre } from '@/stores/genre.js';
+import { useGenreStore } from '@/stores/genre.js';
+
+const genreStore = useGenreStore();
+const route = useRoute();
 
 const isDropdownOpen = ref(false);
 const isSidemenuOpen = ref(false);
 const genres = ref([]);
-const useGenreStore = useGenre();
-
-const route = useRoute();
 
 const toggleSidemenu = () => {
     isSidemenuOpen.value = !isSidemenuOpen.value;
