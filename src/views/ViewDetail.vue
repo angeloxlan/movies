@@ -2,7 +2,7 @@
     <div>
         <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
         <AppSpinner v-if="isLoading" />
-        <ViewShowcase v-else :movies="movies" :title="title" />
+        <AppShowcase v-else :movies="movies" :title="title" />
     </div>
 </template>
 
@@ -11,7 +11,7 @@ import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import AppDetail from '@/components/movies/AppDetail.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
-import ViewShowcase from '@/views/ViewShowcase.vue';
+import AppShowcase from '@/components/movies/AppShowcase.vue';
 import { getRecommended } from '@/api/movies.js';
 
 const route = useRoute();

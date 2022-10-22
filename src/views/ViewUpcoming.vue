@@ -1,11 +1,11 @@
 <template>
     <AppSpinner v-if="isLoading" class="min-h-4/5" />
-    <ViewShowcase v-else :movies="movies" :title="title" />
+    <AppShowcase v-else :movies="movies" :title="title" />
 </template>
 
 <script setup>
 import { ref, watchEffect } from 'vue';
-import ViewShowcase from '@/views/ViewShowcase.vue';
+import AppShowcase from '@/components/movies/AppShowcase.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { useRoute } from 'vue-router';
 import { getUpcoming } from '@/api/movies.js';
