@@ -23,7 +23,8 @@ export const usePaginationStore = defineStore('pagination', {
             return false;
         },
         isNextPageAvailable: (state) => {
-            if (parseInt(state.currentPage) < parseInt(state.totalPages)) return true;
+            if (parseInt(state.currentPage) < parseInt(state.totalPages))
+                return true;
 
             return false;
         },

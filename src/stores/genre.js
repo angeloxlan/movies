@@ -14,7 +14,7 @@ export const useGenreStore = defineStore('genre', {
                 });
 
                 return genre?.name;
-            }
-        }
+            };
+        },
     },
 });

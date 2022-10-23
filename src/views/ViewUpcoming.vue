@@ -17,6 +17,8 @@ const title = ref('Upcoming');
 const isLoading = ref(true);
 
 watchEffect(() => {
+    if (route.name != 'upcoming') return;
+
     isLoading.value = true;
     getUpcoming(route.query.page).then((res) => {
         movies.value = res;

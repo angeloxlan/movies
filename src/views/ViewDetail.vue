@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
-        <AppSpinner v-if="isLoading" />
-        <AppShowcase v-else :movies="movies" :title="title" />
-    </div>
+    <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
+    <AppSpinner v-if="isLoading" />
+    <AppShowcase v-else :movies="movies" :title="title" />
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import AppDetail from '@/components/movies/AppDetail.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
@@ -20,31 +18,14 @@ const movies = ref([]);
 const title = ref('Recommended');
 const isLoading = ref(true);
 
-getRecommended(route.params.id).then((res) => {
-    movies.value = res;
-    isLoading.value = false;
+watchEffect(() => {
+    if (route.name != 'movieDetail') return;
+
+    movies.value = [];
+    isLoading.value = true;
+    getRecommended(route.params.id, route.query.page).then((res) => {
+        movies.value = res;
+        isLoading.value = false;
+    });
 });
-
-watch(
-    () => route.params.id,
-    (newValue) => {
-        movies.value = [];
-        isLoading.value = true;
-        getRecommended(newValue).then((res) => {
-            movies.value = res;
-            isLoading.value = false;
-        });
-    }
-);
-
-watch(
-    () => route.query.page,
-    (newValue) => {
-        isLoading.value = true;
-        getRecommended(route.params.id, newValue).then((res) => {
-            movies.value = res;
-            isLoading.value = false;
-        });
-    }
-);
 </script>

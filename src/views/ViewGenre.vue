@@ -1,10 +1,14 @@
 <template>
     <AppSpinner v-if="isLoading" class="min-h-4/5" />
-    <AppShowcase v-else :movies="movies" :title="genreStore.getGenreNameById(route.params.id)" />
+    <AppShowcase
+        v-else
+        :movies="movies"
+        :title="genreStore.getGenreNameById(route.params.id)"
+    />
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import AppShowcase from '@/components/movies/AppShowcase.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
@@ -17,31 +21,14 @@ const movies = ref([]);
 const route = useRoute();
 const isLoading = ref(true);
 
-getMoviesByGenre(route.params.id).then((res) => {
-    movies.value = res;
-    isLoading.value = false;
+watchEffect(() => {
+    if (route.name != 'genre') return;
+
+    movies.value = [];
+    isLoading.value = true;
+    getMoviesByGenre(route.params.id, route.query.page).then((res) => {
+        movies.value = res;
+        isLoading.value = false;
+    });
 });
-
-watch(
-    () => route.params.id,
-    (newValue) => {
-        movies.value = [];
-        isLoading.value = true;
-        getMoviesByGenre(newValue).then((res) => {
-            movies.value = res;
-            isLoading.value = false;
-        });
-    }
-);
-
-watch(
-    () => route.query.page,
-    (newValue) => {
-        isLoading.value = true;
-        getMoviesByGenre(route.params.id, newValue).then((res) => {
-            movies.value = res;
-            isLoading.value = false;
-        });
-    }
-);
 </script>

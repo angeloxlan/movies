@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import AppShowcase from '@/components/movies/AppShowcase.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { useRoute } from 'vue-router';
@@ -15,21 +15,14 @@ const title = ref('Search');
 const route = useRoute();
 const isLoading = ref(true);
 
-getSearch(route.query.query, route.query.page).then((res) => {
-    movies.value = res;
-    isLoading.value = false;
-});
-title.value = `"${route.query.query}"`;
+watchEffect(() => {
+    if (route.name != 'search') return;
 
-watch(
-    [() => route.query.query, () => route.query.page],
-    ([newQuery, newPage]) => {
-        isLoading.value = true;
-        title.value = `"${newQuery}"`;
-        getSearch(newQuery, newPage).then((res) => {
-            movies.value = res;
-            isLoading.value = false;
-        });
-    }
-);
+    isLoading.value = true;
+    title.value = `"${route.query.query}"`;
+    getSearch(route.query.query, route.query.page).then((res) => {
+        movies.value = res;
+        isLoading.value = false;
+    });
+});
 </script>

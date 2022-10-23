@@ -108,9 +108,7 @@
                                         name: 'genre',
                                         params: { id: genre.id },
                                     }"
-                                    @click="
-                                        toggleSidemenu();
-                                    "
+                                    @click="toggleSidemenu()"
                                     >{{ genre.name }}</router-link
                                 >
                             </li>
