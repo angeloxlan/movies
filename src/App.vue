@@ -16,6 +16,15 @@ getMovieGenres().then((res) => {
 </script>
 
 <style>
+html,
+body {
+    @apply h-full;
+}
+
+#app {
+    @apply h-full flex flex-col;
+}
+
 @media (min-width: 768px) {
     body {
         overflow-y: scroll !important;

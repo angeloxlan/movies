@@ -1,10 +1,12 @@
 <template>
-    <AppSpinner v-if="isLoading" class="min-h-4/5" />
-    <AppShowcase
-        v-else
-        :movies="movies"
-        :title="genreStore.getGenreNameById(route.params.id)"
-    />
+    <div class="flex flex-col flex-auto justify-center items-center">
+        <AppSpinner v-if="isLoading" />
+        <AppShowcase
+            v-else
+            :movies="movies"
+            :title="genreStore.getGenreNameById(route.params.id)"
+        />
+    </div>
 </template>
 
 <script setup>

@@ -1,5 +1,8 @@
 <template>
-    <div class="container min-h-screen my-0 mx-auto mt-4 mb-6 flex flex-col">
+    <div
+        v-if="isMoviesAvailable"
+        class="container min-h-screen my-0 mx-auto mt-4 mb-6 flex flex-col"
+    >
         <div class="grid grid-cols-1 lg:grid-cols-4 gra-y-16">
             <p class="text-center text-3xl font-bold mb-6">{{ title }}</p>
         </div>
@@ -22,12 +25,14 @@
             :totalResults="props.movies.total_results"
         />
     </div>
+    <AppNoResults v-else />
 </template>
 
 <script setup>
-import { defineProps, ref, watch } from 'vue';
+import { computed, defineProps, ref, watch } from 'vue';
 import AppPoster from '@/components/movies/AppPoster.vue';
 import AppPagination from '@/components/AppPagination.vue';
+import AppNoResults from '@/components/ui/AppNoResults.vue';
 
 const props = defineProps({
     movies: {
@@ -37,5 +42,9 @@ const props = defineProps({
         total_results: Number,
     },
     title: String,
+});
+
+const isMoviesAvailable = computed(() => {
+    return props.movies.results && props.movies.results.length;
 });
 </script>

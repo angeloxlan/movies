@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex-initial">
         <!-- Desktop Navbar -->
         <div
             class="container my-0 mx-auto border-b-2 border-app-black hidden md:block"
@@ -7,21 +7,21 @@
             <ul class="flex justify-around h-32 text-stone-700">
                 <li class="self-center"><a href="#">LOGO</a></li>
                 <li
-                    class="self-center hover:scale-110 transition duration-300 ease-int-out"
+                    class="self-center hover:scale-110 transition duration-300 ease-in-out"
                 >
                     <router-link :to="{ name: 'trending' }"
                         >Trending</router-link
                     >
                 </li>
                 <li
-                    class="self-center hover:scale-110 transition duration-300 ease-int-out"
+                    class="self-center hover:scale-110 transition duration-300 ease-in-out"
                 >
                     <router-link :to="{ name: 'topRated' }"
                         >Top Rated</router-link
                     >
                 </li>
                 <li
-                    class="self-center hover:scale-110 transition duration-300 ease-int-out"
+                    class="self-center hover:scale-110 transition duration-300 ease-in-out"
                 >
                     <router-link :to="{ name: 'upcoming' }"
                         >Upcoming</router-link
