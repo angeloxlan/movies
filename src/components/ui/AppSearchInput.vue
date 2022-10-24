@@ -51,6 +51,8 @@ const query = ref(null);
 const result = ref(null);
 const router = useRouter();
 
+let timeout = null;
+
 const search = () => {
     if (isSearchFieldOpen.value && query.value)
         router.push({ name: 'search', query: { query: query.value } });
@@ -66,8 +68,20 @@ const closeSearchInput = () => {
 };
 
 const clickOutside = (e) => {
-    if (!inputSearchContainer.value.contains(e.target) && !query.value)
+    if (!inputSearchContainer.value.contains(e.target) && !query.value) {
         isSearchFieldOpen.value = false;
+    } else if (!inputSearchContainer.value.contains(e.target) && query.value){
+        if (!isSearchFieldOpen.value || timeout) return;
+
+        timeout = setTimeout(() => {
+            isSearchFieldOpen.value = false;
+            clearTimeout(timeout);
+            timeout = null;
+        }, 5000);
+    } else {
+        clearTimeout(timeout);
+        timeout = null;
+    }
 };
 
 onMounted(() => {
