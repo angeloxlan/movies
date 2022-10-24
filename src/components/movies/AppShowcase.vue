@@ -25,7 +25,11 @@
             :totalResults="props.movies.total_results"
         />
     </div>
-    <AppNoResults v-else />
+    <AppNoResults v-else>
+        <template #noResults>
+            <slot name="noResults"></slot>
+        </template>
+    </AppNoResults>
 </template>
 
 <script setup>
