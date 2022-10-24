@@ -1,7 +1,9 @@
 <template>
     <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
-    <AppSpinner v-if="isLoading" />
-    <AppShowcase v-else :movies="movies" :title="title" />
+    <div class="flex flex-col flex-auto justify-center items-center">
+        <AppSpinner v-if="isLoading" />
+        <AppShowcase v-else :movies="movies" :title="title" />
+    </div>
 </template>
 
 <script setup>
