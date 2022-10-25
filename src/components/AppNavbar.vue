@@ -67,53 +67,58 @@
             <Transition>
                 <div
                     class="fixed top-0 left-0 h-screen w-screen z-10"
-                    v-if="isSidemenuOpen"
+                    v-show="isSidemenuOpen"
                 >
                     <div
                         class="absolute bg-slate-600 opacity-75 h-full w-full"
                         @click="toggleSidemenu"
                     ></div>
-                    <div
-                        class="absolute bg-white w-3/4 px-5 py-8 h-full w-full overflow-y-auto"
-                    >
-                        <p class="text-center">LOGO</p>
-                        <ul class="font-bold">
-                            <li>
-                                <router-link :to="{ name: 'trending' }"
-                                    >Trending</router-link
-                                >
-                            </li>
-                            <li>
-                                <router-link :to="{ name: 'topRated' }"
-                                    >Top Rated</router-link
-                                >
-                            </li>
-                            <li>
-                                <router-link :to="{ name: 'upcoming' }"
-                                    >Upcoming</router-link
-                                >
-                            </li>
-                        </ul>
-                        <hr class="border my-4" />
-                        <p class="font-bold">Genres</p>
-                        <ul>
-                            <li
-                                v-for="genre in genreStore.genres"
-                                :key="genre.id"
-                                class="ml-2"
-                            >
-                                <router-link
-                                    class="w-fit"
-                                    :to="{
-                                        name: 'genre',
-                                        params: { id: genre.id },
-                                    }"
-                                    @click="toggleSidemenu()"
-                                    >{{ genre.name }}</router-link
-                                >
-                            </li>
-                        </ul>
-                    </div>
+                    <Transition name="sideWidth">
+                        <div
+                            class="absolute bg-white w-64 h-full overflow-y-auto"
+                            v-show="isSidemenuOpen"
+                        >
+                            <div class="w-64 px-5 py-8">
+                                <p class="text-center">LOGO</p>
+                                <ul class="font-bold">
+                                    <li>
+                                        <router-link :to="{ name: 'trending' }"
+                                            >Trending</router-link
+                                        >
+                                    </li>
+                                    <li>
+                                        <router-link :to="{ name: 'topRated' }"
+                                            >Top Rated</router-link
+                                        >
+                                    </li>
+                                    <li>
+                                        <router-link :to="{ name: 'upcoming' }"
+                                            >Upcoming</router-link
+                                        >
+                                    </li>
+                                </ul>
+                                <hr class="border my-4" />
+                                <p class="font-bold">Genres</p>
+                                <ul>
+                                    <li
+                                        v-for="genre in genreStore.genres"
+                                        :key="genre.id"
+                                        class="ml-2"
+                                    >
+                                        <router-link
+                                            class="w-fit"
+                                            :to="{
+                                                name: 'genre',
+                                                params: { id: genre.id },
+                                            }"
+                                            @click="toggleSidemenu()"
+                                            >{{ genre.name }}</router-link
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Transition>
                 </div>
             </Transition>
         </div>
@@ -156,11 +161,21 @@ li > .router-link-active {
 
 .v-enter-active,
 .v-leave-active {
-    transition: opacity 0.5s ease;
+    transition: opacity 0.3s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+
+.sideWidth-enter-active,
+.sideWidth-leave-active {
+    transition: width 0.3s ease;
+}
+
+.sideWidth-enter-from,
+.sideWidth-leave-to {
+    width: 0;
 }
 </style>
