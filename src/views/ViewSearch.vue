@@ -20,6 +20,7 @@ const isLoading = ref(true);
 watchEffect(() => {
     if (route.name != 'search') return;
 
+    window.scrollTo(0, 0);
     isLoading.value = true;
     title.value = `"${route.query.query}"`;
     getSearch(route.query.query, route.query.page).then((res) => {

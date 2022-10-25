@@ -70,7 +70,7 @@ const closeSearchInput = () => {
 const clickOutside = (e) => {
     if (!inputSearchContainer.value.contains(e.target) && !query.value) {
         isSearchFieldOpen.value = false;
-    } else if (!inputSearchContainer.value.contains(e.target) && query.value){
+    } else if (!inputSearchContainer.value.contains(e.target) && query.value) {
         if (!isSearchFieldOpen.value || timeout) return;
 
         timeout = setTimeout(() => {

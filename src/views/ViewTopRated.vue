@@ -21,6 +21,7 @@ const isLoading = ref(true);
 watchEffect(() => {
     if (route.name != 'topRated') return;
 
+    window.scrollTo(0, 0);
     isLoading.value = true;
     getTopRated(route.query.page).then((res) => {
         movies.value = res;

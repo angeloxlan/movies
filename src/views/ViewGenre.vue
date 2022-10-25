@@ -26,6 +26,7 @@ const isLoading = ref(true);
 watchEffect(() => {
     if (route.name != 'genre') return;
 
+    window.scrollTo(0, 0);
     movies.value = [];
     isLoading.value = true;
     getMoviesByGenre(route.params.id, route.query.page).then((res) => {

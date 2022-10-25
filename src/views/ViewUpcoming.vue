@@ -21,6 +21,7 @@ const isLoading = ref(true);
 watchEffect(() => {
     if (route.name != 'upcoming') return;
 
+    window.scrollTo(0, 0);
     isLoading.value = true;
     getUpcoming(route.query.page).then((res) => {
         movies.value = res;

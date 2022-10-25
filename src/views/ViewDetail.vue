@@ -29,6 +29,7 @@ const isLoading = ref(true);
 watchEffect(() => {
     if (route.name != 'movieDetail') return;
 
+    window.scrollTo(0, 0);
     movies.value = [];
     isLoading.value = true;
     getRecommended(route.params.id, route.query.page).then((res) => {
