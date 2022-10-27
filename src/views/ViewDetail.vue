@@ -5,7 +5,7 @@
         <AppShowcase v-else :movies="movies" :title="title">
             <template #noResults>
                 <p class="font-bold text-xl text-slate-500">
-                    No recommendations found.
+                    No recommendations found
                 </p>
             </template>
         </AppShowcase>
