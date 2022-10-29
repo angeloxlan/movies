@@ -1,7 +1,10 @@
 <template>
+    <p class="container my-4 mx-auto pl-20 flex flex-col text-3xl font-bold">
+        {{ title }}
+    </p>
     <div class="flex flex-col flex-auto justify-center items-center">
         <AppSpinner v-if="isLoading" />
-        <AppShowcase v-else :movies="movies" :title="title" />
+        <AppShowcase v-else :movies="movies" />
     </div>
 </template>
 
@@ -12,9 +15,10 @@ import AppSpinner from '@/components/ui/AppSpinner.vue';
 import { useRoute } from 'vue-router';
 import { getSearch } from '@/api/movies.js';
 
+const route = useRoute();
+
 const movies = ref([]);
 const title = ref('Search');
-const route = useRoute();
 const isLoading = ref(true);
 
 watchEffect(() => {

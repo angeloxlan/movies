@@ -3,9 +3,6 @@
         v-if="isMoviesAvailable"
         class="container min-h-screen my-0 mx-auto mt-4 mb-6 flex flex-col"
     >
-        <div class="grid grid-cols-1 lg:grid-cols-4 gra-y-16">
-            <p class="text-center text-3xl font-bold mb-6">{{ title }}</p>
-        </div>
         <div
             class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16"
         >
@@ -45,7 +42,6 @@ const props = defineProps({
         total_pages: Number,
         total_results: Number,
     },
-    title: String,
 });
 
 const isMoviesAvailable = computed(() => {
