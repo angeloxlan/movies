@@ -29,7 +29,12 @@
                 </li>
                 <li class="self-center">
                     <AppDropdown>
-                        <template #toggleLabel>Genres</template>
+                        <template #toggleLabel>
+                            <span
+                                class="hover:scale-110 transition duration-300 ease-in-out"
+                                >Genres</span
+                            >
+                        </template>
                         <template #menu>
                             <div class="w-120 grid grid-cols-3">
                                 <router-link
@@ -154,9 +159,11 @@ watch(
 
 <style scoped>
 li > .router-link-active {
-    @apply border-gray-400;
-    @apply text-black;
-    box-shadow: 0px 13px 25px -7px rgb(107 107 107 / 75%);
+    @apply text-black md:pb-1 border-gray-400 border-b-2;
+}
+
+li > :not(.router-link-active) {
+    @apply hover:border-app-gray md:pb-1 hover:border-b-2;
 }
 
 .v-enter-active,
