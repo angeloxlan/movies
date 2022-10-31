@@ -239,6 +239,7 @@ const isLoading = ref(true);
 
 const widthCarouselItem = 48;
 const carouselSpaceItems = 16;
+let carouselInterval = null;
 
 const fullPosterPath = computed(() => {
     if (!movie.value.poster_path) return posterPlaceholder;
@@ -283,6 +284,14 @@ const getInitialPosition = (index) => {
     return `translate(${position}px, 0px)`;
 };
 
+const carouselAutoPlay = () => {
+    carouselInterval = setInterval(() => {
+       carouselNext(); 
+    }, 3500);
+}
+
+carouselAutoPlay();
+
 const carouselNext = () => {
     if (
         carouselContainer.value.scrollWidth <=
@@ -306,6 +315,9 @@ const carouselNext = () => {
 
         item.style.transform = `translate(${stepNext}px, 0px)`;
     });
+
+    clearInterval(carouselInterval);
+    carouselAutoPlay();
 };
 
 const carouselPrev = () => {
@@ -331,6 +343,9 @@ const carouselPrev = () => {
 
         item.style.transform = `translate(${stepPrev}px, 0px)`;
     });
+
+    clearInterval(carouselInterval);
+    carouselAutoPlay();
 };
 
 watch(
