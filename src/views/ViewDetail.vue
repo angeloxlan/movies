@@ -1,6 +1,8 @@
 <template>
     <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
-    <p class="container my-4 mx-auto pl-20 flex flex-col text-3xl font-bold">
+    <p
+        class="font-ubuntu container my-4 mx-auto pl-20 flex flex-col text-3xl font-bold"
+    >
         {{ title }}
     </p>
     <div class="flex flex-col flex-auto justify-center items-center">

@@ -117,12 +117,14 @@
                 class="flex flex-col justify-between gap-2 lg:w-2/4 px-8 lg:px-16"
             >
                 <div>
-                    <p class="text-xl lg:text-2xl font-bold">
+                    <p class="font-ubuntu text-xl lg:text-2xl font-bold">
                         {{ movie.title }}
                     </p>
-                    <p class="text-sm lg:text-base">{{ movie.tagline }}</p>
+                    <p class="font-inter text-sm lg:text-base">
+                        {{ movie.tagline }}
+                    </p>
                     <div class="flex gap-4 mt-2">
-                        <div class="flex gap-3">
+                        <div class="font-inter flex gap-3">
                             <star-rating
                                 :rating="rateVoteAverage"
                                 :increment="0.5"
@@ -137,27 +139,35 @@
                             <span>{{ movie.vote_average }}</span>
                         </div>
                         <div>&hyphen;</div>
-                        <div class="text-slate-500">
+                        <div class="font-ubuntu italic text-slate-500">
                             {{ movieYear }}
                         </div>
                     </div>
                 </div>
                 <div>
-                    <p class="text-xl lg:text-2xl font-bold">Genres</p>
+                    <p class="font-ubuntu text-xl lg:text-2xl font-bold">
+                        Genres
+                    </p>
                     <router-link
                         v-for="genre in movie.genres"
                         :key="genre.id"
                         :to="{ name: 'genre', params: { id: genre.id } }"
-                        class="genre-item font-bold text-sm lg:text-base text-slate-500 mr-3 inline-block hover:translate-y-1 transition ease-in-out"
+                        class="font-inter genre-item font-bold text-sm lg:text-base text-slate-500 mr-3 inline-block hover:translate-y-1 transition ease-in-out"
                         >{{ genre.name }}</router-link
                     >
                 </div>
                 <div>
-                    <p class="text-xl text-2xl font-bold">Synopsis</p>
-                    <p class="text-sm lg:text-base">{{ movie.overview }}</p>
+                    <p class="font-ubuntu text-xl text-2xl font-bold">
+                        Synopsis
+                    </p>
+                    <p class="font-inter text-sm lg:text-base">
+                        {{ movie.overview }}
+                    </p>
                 </div>
                 <div>
-                    <p class="text-xl lg:text-2xl font-bold">Cast</p>
+                    <p class="font-ubuntu text-xl lg:text-2xl font-bold">
+                        Cast
+                    </p>
                     <div class="flex gap-2 h-[4.5rem]">
                         <button @click="carouselPrev" ref="prevBtn">
                             <img
@@ -192,7 +202,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex gap-2">
+                <div class="font-inter flex gap-2">
                     <a
                         v-if="movie.homepage"
                         :href="movie.homepage"
@@ -286,9 +296,9 @@ const getInitialPosition = (index) => {
 
 const carouselAutoPlay = () => {
     carouselInterval = setInterval(() => {
-       carouselNext(); 
+        carouselNext();
     }, 3500);
-}
+};
 
 carouselAutoPlay();
 

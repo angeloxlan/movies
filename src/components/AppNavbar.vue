@@ -4,7 +4,9 @@
         <div
             class="container my-0 mx-auto border-b-2 border-app-black hidden md:block"
         >
-            <ul class="flex justify-around h-32 text-stone-700">
+            <ul
+                class="font-ubuntu font-medium text-lg flex justify-around h-32 text-stone-700"
+            >
                 <li class="self-center"><a href="#">LOGO</a></li>
                 <li
                     class="self-center hover:scale-110 transition duration-300 ease-in-out"
@@ -36,7 +38,9 @@
                             >
                         </template>
                         <template #menu>
-                            <div class="w-120 grid grid-cols-3">
+                            <div
+                                class="text-base font-normal w-120 grid grid-cols-3"
+                            >
                                 <router-link
                                     class="w-fit hover:scale-110 transition duration-300 ease-int-out"
                                     :to="{

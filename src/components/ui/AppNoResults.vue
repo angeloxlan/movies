@@ -1,5 +1,5 @@
 <template>
-    <div class="p-6 text-center">
+    <div class="font-ubuntu p-6 text-center">
         <img src="@/assets/img/NoResults.svg" class="inline h-52 mb-8" />
         <slot name="noResults">
             <p class="font-bold text-xl text-slate-500">No results found</p>

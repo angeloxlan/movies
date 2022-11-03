@@ -6,7 +6,9 @@
         <div class="flex h-87">
             <img class="rounded-t-lg" :src="fullPosterPath" />
         </div>
-        <div class="rounded-b-lg bg-app-white2 min-h-1/6 p-2 text-center">
+        <div
+            class="font-inter rounded-b-lg bg-app-white2 min-h-1/6 p-2 text-center"
+        >
             <p>{{ title }}</p>
             <span
                 class="pt-2 group relative inline-block text-block text-blue-500 underline hover:text-red-500 duration-300"

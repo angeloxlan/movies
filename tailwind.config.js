@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
     content: ['./src/**/*.{html,vue,js}', './index.html'],
     theme: {
@@ -33,6 +35,10 @@ module.exports = {
             },
             rotate: {
                 270: '270deg',
+            },
+            fontFamily: {
+                inter: ["'Inter'", ...defaultTheme.fontFamily.sans],
+                ubuntu: ["'Ubuntu'", ...defaultTheme.fontFamily.sans],
             },
         },
     },

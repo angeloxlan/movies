@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center gap-4 mt-10 mb-6">
+    <div class="font-inter flex justify-center gap-4 mt-10 mb-6">
         <router-link
             :to="{
                 name: route.name,
