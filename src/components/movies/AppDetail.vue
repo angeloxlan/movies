@@ -183,7 +183,11 @@
                                 <img
                                     v-for="(member, index) in cast"
                                     :key="member.id"
-                                    :src="fullCastImgPath(member.profile_path)"
+                                    :src="
+                                        getFullCastImagePath(
+                                            member.profile_path
+                                        )
+                                    "
                                     @transitionend="hideTranslate"
                                     ref="carouselItems"
                                     class="overflow-hidden w-12 rounded-lg absolute top-0 left-0 mr-4 z-[1] transition-transform duration-500"
@@ -227,14 +231,14 @@
 <script setup>
 import { computed, defineProps, ref, watch } from 'vue';
 import StarRating from 'vue-star-rating';
-import posterPlaceholder from '@/assets/img/movie-placeholder-1.svg';
-import castPlaceholder from '@/assets/img/cast-placeholder.svg';
+import { getCast, getDetail } from '@/api/movies.js';
 import {
-    getCast,
-    getDetail,
-    POSTER_PATH_DETAIL,
-    CAST_IMG_PATH,
-} from '@/api/movies.js';
+    getFullCastImagePath,
+    getFullPosterPath,
+    getIMDBLink,
+} from '@/utils/buildPaths.js';
+import { getRatingVoteAverage } from '@/utils/votingCalc.js';
+import { getYear } from '@/utils/dates.js';
 
 const props = defineProps({
     id: [Number, String],
@@ -251,29 +255,17 @@ const widthCarouselItem = 48;
 const carouselSpaceItems = 16;
 let carouselInterval = null;
 
-const fullPosterPath = computed(() => {
-    if (!movie.value.poster_path) return posterPlaceholder;
-    return `${POSTER_PATH_DETAIL}${movie.value.poster_path}`;
-});
-const fullCastImgPath = computed(() => {
-    return (profilePath) => {
-        if (!profilePath) return castPlaceholder;
-        return `${CAST_IMG_PATH}${profilePath}`;
-    };
-});
+const rateVoteAverage = computed(() =>
+    getRatingVoteAverage(movie.value.vote_average)
+);
 
-const rateVoteAverage = computed(() => {
-    return movie.value.vote_average / 2;
-});
+const movieYear = computed(() => getYear(movie.value.release_date));
 
-const movieYear = computed(() => {
-    const movieDate = new Date(movie.value.release_date);
-    return movieDate.getFullYear();
-});
+const imdbLink = computed(() => getIMDBLink(movie.value.imdb_id));
 
-const imdbLink = computed(() => {
-    return `https://www.imdb.com/title/${movie.value.imdb_id}`;
-});
+const fullPosterPath = computed(() =>
+    getFullPosterPath(movie.value.poster_path)
+);
 
 getDetail(props.id).then((res) => {
     movie.value = res;

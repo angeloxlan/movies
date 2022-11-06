@@ -1,7 +1,4 @@
 const URL = 'https://api.themoviedb.org/3';
-export const POSTER_PATH = 'https://image.tmdb.org/t/p/w342';
-export const POSTER_PATH_DETAIL = 'https://image.tmdb.org/t/p/w780';
-export const CAST_IMG_PATH = 'https://image.tmdb.org/t/p/w185';
 
 const params = {
     mode: 'cors',

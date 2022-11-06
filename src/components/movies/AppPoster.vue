@@ -39,10 +39,11 @@
 <script setup>
 import { computed, defineProps } from 'vue';
 import StarRating from 'vue-star-rating';
-import { POSTER_PATH } from '@/api/movies.js';
-import placholder1 from '@/assets/img/movie-placeholder-1.svg';
-import placholder2 from '@/assets/img/movie-placeholder-2.svg';
-import placholder3 from '@/assets/img/movie-placeholder-3.svg';
+import { getPosterPath } from '@/utils/buildPaths.js';
+import {
+    getRatingVoteAverage,
+    getRoundedVoteAverage,
+} from '@/utils/votingCalc.js';
 
 const props = defineProps({
     id: Number,
@@ -52,24 +53,11 @@ const props = defineProps({
     voteCount: Number,
 });
 
-const imgPlaceholders = [placholder1, placholder2, placholder3];
+const fullPosterPath = computed(() => getPosterPath(props.posterPath));
 
-const fullPosterPath = computed(() => {
-    if (!props.posterPath) return imgPlaceholders[randomNumber(0, 2)];
-    return `${POSTER_PATH}${props.posterPath}`;
-});
+const rateVoteAverage = computed(() => getRatingVoteAverage(props.voteAverage));
 
-const rateVoteAverage = computed(() => {
-    return props.voteAverage / 2;
-});
-
-const roundedVoteAverage = computed(() => {
-    return props.voteAverage.toFixed(1);
-});
-
-const randomNumber = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+const roundedVoteAverage = computed(() =>
+    getRoundedVoteAverage(props.voteAverage)
+);
 </script>
