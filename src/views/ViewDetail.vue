@@ -19,13 +19,14 @@
 
 <script setup>
 import { ref, watch, watchEffect } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import AppDetail from '@/components/movies/AppDetail.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
 import AppShowcase from '@/components/movies/AppShowcase.vue';
 import { getRecommended } from '@/api/movies.js';
 
 const route = useRoute();
+const router = useRouter();
 
 const movies = ref([]);
 const title = ref('Recommended');
@@ -38,6 +39,9 @@ watchEffect(() => {
     movies.value = [];
     isLoading.value = true;
     getRecommended(route.params.id, route.query.page).then((res) => {
+        console.log(res);
+        if(res.hasOwnProperty('success') && !res.success) router.push({ name: 'NotFound' });
+
         movies.value = res;
         isLoading.value = false;
     });
