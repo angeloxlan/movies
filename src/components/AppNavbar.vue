@@ -7,7 +7,15 @@
             <ul
                 class="font-ubuntu font-medium text-lg flex justify-around h-32 text-stone-700"
             >
-                <li class="self-center"><a href="#">LOGO</a></li>
+                <li class="self-center">
+                    <!-- <a href="#">LOGO</a> -->
+                    <router-link to="/">
+                        <img
+                            src="@/assets/img/movies-logo.svg"
+                            class="h-20 lg:h-28"
+                        />
+                    </router-link>
+                </li>
                 <li
                     class="self-center hover:scale-110 transition duration-300 ease-in-out"
                 >
@@ -79,29 +87,45 @@
                     v-show="isSidemenuOpen"
                 >
                     <div
-                        class="absolute bg-slate-600 opacity-75 h-full w-full"
+                        class="absolute bg-slate-600 opacity-75 h-full w-full z-20"
                         @click="toggleSidemenu"
                     ></div>
                     <Transition name="sideWidth">
                         <div
-                            class="absolute bg-white w-64 h-full overflow-y-auto"
+                            class="absolute bg-white w-64 h-screen overflow-y-auto z-30"
                             v-show="isSidemenuOpen"
                         >
-                            <div class="w-64 px-5 py-8">
-                                <p class="text-center">LOGO</p>
+                            <div class="w-64 px-5 pt-8 pb-20">
+                                <!-- <p class="text-center">LOGO</p> -->
+                                <router-link
+                                    to="/"
+                                    class="flex justify-center"
+                                    @click="toggleSidemenu()"
+                                >
+                                    <img
+                                        src="@/assets/img/movies-logo.svg"
+                                        class="h-20"
+                                    />
+                                </router-link>
                                 <ul class="font-bold">
                                     <li>
-                                        <router-link :to="{ name: 'trending' }"
+                                        <router-link
+                                            :to="{ name: 'trending' }"
+                                            @click="toggleSidemenu()"
                                             >Trending</router-link
                                         >
                                     </li>
                                     <li>
-                                        <router-link :to="{ name: 'topRated' }"
+                                        <router-link
+                                            :to="{ name: 'topRated' }"
+                                            @click="toggleSidemenu()"
                                             >Top Rated</router-link
                                         >
                                     </li>
                                     <li>
-                                        <router-link :to="{ name: 'upcoming' }"
+                                        <router-link
+                                            :to="{ name: 'upcoming' }"
+                                            @click="toggleSidemenu()"
                                             >Upcoming</router-link
                                         >
                                     </li>
@@ -151,6 +175,11 @@ const genres = ref([]);
 const toggleSidemenu = () => {
     isSidemenuOpen.value = !isSidemenuOpen.value;
     document.body.style.overflowY = isSidemenuOpen.value ? 'hidden' : 'scroll';
+    document.documentElement.style.overflowY = isSidemenuOpen.value
+        ? 'hidden'
+        : 'scroll';
+    document.body.style.zIndex = 0;
+    document.documentElement.style.zIndex = 0;
 };
 
 watch(
@@ -166,7 +195,7 @@ li > .router-link-active {
     @apply text-black md:pb-1 border-gray-400 border-b-2;
 }
 
-li > :not(.router-link-active) {
+li > :not(.router-link-active, img) {
     @apply hover:border-app-gray md:pb-1 hover:border-b-2;
 }
 
@@ -188,5 +217,9 @@ li > :not(.router-link-active) {
 .sideWidth-enter-from,
 .sideWidth-leave-to {
     width: 0;
+}
+html,
+body {
+    z-index: 0;
 }
 </style>
