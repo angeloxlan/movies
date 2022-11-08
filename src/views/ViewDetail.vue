@@ -1,5 +1,5 @@
 <template>
-    <AppDetail :id="route.params.id" class="mb-10 lg:mb-28" />
+    <AppDetail :id="route.params.id" :movie="movie" :cast="cast" class="mb-10 lg:mb-28" />
     <p
         class="font-ubuntu container my-4 mx-auto pl-20 flex flex-col text-3xl font-bold"
     >
@@ -23,12 +23,14 @@ import { useRoute, useRouter } from 'vue-router';
 import AppDetail from '@/components/movies/AppDetail.vue';
 import AppSpinner from '@/components/ui/AppSpinner.vue';
 import AppShowcase from '@/components/movies/AppShowcase.vue';
-import { getRecommended } from '@/api/movies.js';
+import { getCast, getDetail, getRecommended } from '@/api/movies.js';
 
 const route = useRoute();
 const router = useRouter();
 
 const movies = ref([]);
+const movie = ref([]);
+const cast = ref([]);
 const title = ref('Recommended');
 const isLoading = ref(true);
 
@@ -36,14 +38,26 @@ watchEffect(() => {
     if (route.name != 'movieDetail') return;
 
     window.scrollTo(0, 0);
+
     movies.value = [];
+    movie.value = [];
+    cast.value = [];
     isLoading.value = true;
-    getRecommended(route.params.id, route.query.page).then((res) => {
+
+    getDetail(route.params.id).then((res) => {
         if (res.hasOwnProperty('success') && !res.success)
             router.push({ name: 'NotFound' });
 
-        movies.value = res;
+        movie.value = res;
         isLoading.value = false;
+
+        document.title = movie.value.title ? `${movie.value.title} - ${import.meta.env.VITE_APP_TITLE}` : import.meta.env.VITE_APP_TITLE;
+    });
+    getCast(route.params.id).then((res) => {
+        cast.value = res.cast;
+    });
+    getRecommended(route.params.id, route.query.page).then((res) => {
+        movies.value = res;
     });
 });
 </script>

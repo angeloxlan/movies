@@ -193,47 +193,32 @@
 </template>
 
 <script setup>
-import { computed, defineProps, ref, watchEffect } from 'vue';
+import { computed, defineProps } from 'vue';
 import StarRating from 'vue-star-rating';
 import AppCastCarousel from '@/components/movies/AppCastCarousel.vue';
-import { getCast, getDetail } from '@/api/movies.js';
 import { getFullPosterPath, getIMDBLink } from '@/utils/buildPaths.js';
 import { getRatingVoteAverage } from '@/utils/votingCalc.js';
 import { getYear } from '@/utils/dates.js';
 
 const props = defineProps({
     id: [Number, String],
+    movie: Object,
+    cast: Array,
 });
-const movie = ref([]);
-const cast = ref([]);
-const isLoading = ref(true);
+
+const isLoading = computed(() => Object.entries(props.movie).length === 0);
 
 const rateVoteAverage = computed(() =>
-    getRatingVoteAverage(movie.value.vote_average)
+    getRatingVoteAverage(props.movie.vote_average)
 );
 
-const movieYear = computed(() => getYear(movie.value.release_date));
+const movieYear = computed(() => getYear(props.movie.release_date));
 
-const imdbLink = computed(() => getIMDBLink(movie.value.imdb_id));
+const imdbLink = computed(() => getIMDBLink(props.movie.imdb_id));
 
 const fullPosterPath = computed(() =>
-    getFullPosterPath(movie.value.poster_path)
+    getFullPosterPath(props.movie.poster_path)
 );
-
-watchEffect(() => {
-    movie.value = [];
-    cast.value = [];
-    isLoading.value = true;
-    getDetail(props.id).then((res) => {
-        movie.value = res;
-        isLoading.value = false;
-
-        document.title = movie.value.title ? `${movie.value.title} - ${import.meta.env.VITE_APP_TITLE}` : import.meta.env.VITE_APP_TITLE;
-    });
-    getCast(props.id).then((res) => {
-        cast.value = res.cast;
-    });
-});
 </script>
 
 <style scoped>
