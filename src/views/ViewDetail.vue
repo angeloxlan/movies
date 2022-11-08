@@ -39,7 +39,6 @@ watchEffect(() => {
     movies.value = [];
     isLoading.value = true;
     getRecommended(route.params.id, route.query.page).then((res) => {
-        console.log(res);
         if (res.hasOwnProperty('success') && !res.success)
             router.push({ name: 'NotFound' });
 

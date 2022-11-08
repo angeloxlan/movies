@@ -8,6 +8,7 @@ const router = createRouter({
             path: '/:pathMatch(.*)*',
             name: 'NotFound',
             component: () => import('@/views/ViewNotFound.vue'),
+            meta: { title: 'Not Found' },
         },
         {
             path: '/',
@@ -19,16 +20,19 @@ const router = createRouter({
             path: '/trending',
             name: 'trending',
             component: ViewTrending,
+            meta: { title: 'Trending' },
         },
         {
             path: '/top-rated',
             name: 'topRated',
             component: () => import('@/views/ViewTopRated.vue'),
+            meta: { title: 'Top Rated' },
         },
         {
             path: '/upcoming',
             name: 'upcoming',
             component: () => import('@/views/ViewUpcoming.vue'),
+            meta: { title: 'Upcoming' },
         },
         {
             path: '/genre/:id',
@@ -52,6 +56,11 @@ const router = createRouter({
             component: () => import('@/views/ViewSearch.vue'),
         },
     ],
+});
+
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title ? `${to.meta.title} - ${import.meta.env.VITE_APP_TITLE}` : import.meta.env.VITE_APP_TITLE;
+    next();
 });
 
 export default router;

@@ -32,6 +32,8 @@ watchEffect(() => {
     getSearch(route.query.query, route.query.page).then((res) => {
         movies.value = res;
         isLoading.value = false;
+
+        document.title = `Search ${title.value} - ${import.meta.env.VITE_APP_TITLE}`;
     });
 });
 </script>

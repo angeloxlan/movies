@@ -227,6 +227,8 @@ watchEffect(() => {
     getDetail(props.id).then((res) => {
         movie.value = res;
         isLoading.value = false;
+
+        document.title = movie.value.title ? `${movie.value.title} - ${import.meta.env.VITE_APP_TITLE}` : import.meta.env.VITE_APP_TITLE;
     });
     getCast(props.id).then((res) => {
         cast.value = res.cast;

@@ -37,6 +37,8 @@ watchEffect(() => {
     getMoviesByGenre(route.params.id, route.query.page).then((res) => {
         movies.value = res;
         isLoading.value = false;
+
+        document.title = `${title.value} - ${import.meta.env.VITE_APP_TITLE}`;
     });
 });
 </script>
