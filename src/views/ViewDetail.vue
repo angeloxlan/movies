@@ -1,5 +1,10 @@
 <template>
-    <AppDetail :id="route.params.id" :movie="movie" :cast="cast" class="mb-10 lg:mb-28" />
+    <AppDetail
+        :id="route.params.id"
+        :movie="movie"
+        :cast="cast"
+        class="mb-10 lg:mb-28"
+    />
     <p
         class="font-ubuntu container my-4 mx-auto pl-20 flex flex-col text-3xl font-bold"
     >
@@ -51,7 +56,9 @@ watchEffect(() => {
         movie.value = res;
         isLoading.value = false;
 
-        document.title = movie.value.title ? `${movie.value.title} - ${import.meta.env.VITE_APP_TITLE}` : import.meta.env.VITE_APP_TITLE;
+        document.title = movie.value.title
+            ? `${movie.value.title} - ${import.meta.env.VITE_APP_TITLE}`
+            : import.meta.env.VITE_APP_TITLE;
     });
     getCast(route.params.id).then((res) => {
         cast.value = res.cast;

@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="isMoviesAvailable"
-        class="container min-h-screen my-0 mx-auto mt-4 mb-6 flex flex-col"
+        class="container min-h-screen my-0 mx-auto mt-4 flex flex-col"
     >
         <div
             class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-16"

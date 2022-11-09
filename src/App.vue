@@ -1,10 +1,12 @@
 <template>
     <AppNavbar />
     <router-view></router-view>
+    <AppFooter />
 </template>
 
 <script setup>
 import AppNavbar from '@/components/AppNavbar.vue';
+import AppFooter from '@/components/AppFooter.vue';
 import { getMovieGenres } from '@/api/movies.js';
 import { useGenreStore } from '@/stores/genre.js';
 

@@ -33,7 +33,9 @@ watchEffect(() => {
         movies.value = res;
         isLoading.value = false;
 
-        document.title = `Search ${title.value} - ${import.meta.env.VITE_APP_TITLE}`;
+        document.title = `Search ${title.value} - ${
+            import.meta.env.VITE_APP_TITLE
+        }`;
     });
 });
 </script>

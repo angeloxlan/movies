@@ -59,7 +59,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title ? `${to.meta.title} - ${import.meta.env.VITE_APP_TITLE}` : import.meta.env.VITE_APP_TITLE;
+    document.title = to.meta.title
+        ? `${to.meta.title} - ${import.meta.env.VITE_APP_TITLE}`
+        : import.meta.env.VITE_APP_TITLE;
     next();
 });
 
