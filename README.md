@@ -2,7 +2,7 @@
 
 ![Thumbnail](https://user-images.githubusercontent.com/37724229/201003834-7549cca2-f32b-4a81-94e9-cc89c64e25dc.png)
 
-This project is a Movie Library made with **VueJS + TailwindCSS&** using [The Movie Database](https://www.themoviedb.org/documentation/api).
+This project is a Movie Library made with **VueJS + TailwindCSS** using [The Movie Database](https://www.themoviedb.org/documentation/api).
 
 ## Getting Started
 
